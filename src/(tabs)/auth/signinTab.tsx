@@ -1,27 +1,43 @@
+import { LinearGradient } from "expo-linear-gradient";
+import React, { useState } from "react";
+import { colors } from "../../constants/colors";
+import BackNavigateButton from "../../components/backNavigate";
+import { auth } from "../../firebase/firebaseConfig";
+import PrimaryButton from "../../components/primaryButton";
 import {
   ImageBackground,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
+  TextInput,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import React, { useState } from "react";
-import { colors } from "../constants/colors";
-import BackNavigateButton from "../components/backNavigate";
-import { useAuth } from "../contexts/authContext";
-import InputField from "../components/inputField";
-import PrimaryButton from "../components/primaryButton";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import InputField from "../../components/inputField";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-const LoginTab = () => {
-  const { signIn } = useAuth();
+const SigninTab = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [repass, setRepass] = useState<string>("");
+
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
+  const handleSignup = async () => {
+    if (password !== repass) {
+      setErrorMessage("As senhas não coincidem.");
+      return;
+    }
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      console.log("Erro ao criar usuário: ", error);
+    }
+  };
 
   return (
-    <View style={styles.imgBg}>
+    <SafeAreaView style={styles.imgBg}>
       <ImageBackground
-        source={require("../../assets/landing.png")}
+        source={require("../../../assets/landing.png")}
         style={styles.imgBg}
       >
         <LinearGradient
@@ -34,7 +50,7 @@ const LoginTab = () => {
         </LinearGradient>
         <View style={styles.modal}>
           <View style={styles.formContainer}>
-            <Text style={styles.title}>Acessar</Text>
+            <Text style={styles.title}>Cadastrar</Text>
             <InputField
               placeholder="E-mail"
               iconName="mail"
@@ -42,27 +58,30 @@ const LoginTab = () => {
               callback={setEmail}
             />
             <InputField
-              placeholder="Senha"
+              placeholder="Crie uma senha"
               iconName="key"
-              secure={true}
               callback={setPassword}
+              secure={true}
+            />
+            <InputField
+              placeholder="Repita a senha"
+              iconName="key"
+              callback={setRepass}
+              secure={true}
             />
             <PrimaryButton
-              textContent={"Login"}
-              action={signIn}
+              textContent={"Criar conta"}
+              action={handleSignup}
               params={[email, password]}
             />
-            <TouchableOpacity>
-              <Text style={styles.forgot}>Esqueceu sua senha?</Text>
-            </TouchableOpacity>
           </View>
         </View>
       </ImageBackground>
-    </View>
+    </SafeAreaView>
   );
 };
 
-export default LoginTab;
+export default SigninTab;
 
 const styles = StyleSheet.create({
   imgBg: {

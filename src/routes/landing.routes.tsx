@@ -2,15 +2,11 @@ import {
   createStackNavigator,
   TransitionPresets,
 } from "@react-navigation/stack";
-import LoginTab from "../(tabs)/loginTab";
-import LandingTab from "../(tabs)/landingTab";
-import SigninTab from "../(tabs)/signinTab";
+import LoginTab from "../(tabs)/auth/loginTab";
+import LandingTab from "../(tabs)/auth/landingTab";
+import SigninTab from "../(tabs)/auth/signinTab";
 
-const Stack = createStackNavigator<{
-  landing: undefined;
-  login: undefined;
-  signin: undefined;
-}>();
+const Stack = createStackNavigator();
 
 export const LandingStack = () => {
   return (

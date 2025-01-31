@@ -1,44 +1,27 @@
-import { LinearGradient } from "expo-linear-gradient";
-import React, { useState } from "react";
-import { Feather } from "@expo/vector-icons";
-import { colors } from "../constants/colors";
-import BackNavigateButton from "../components/backNavigate";
-import { auth } from "../firebase/firebaseConfig";
-import PrimaryButton from "../components/primaryButton";
 import {
   ImageBackground,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
-  TextInput,
 } from "react-native";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import InputField from "../components/inputField";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { LinearGradient } from "expo-linear-gradient";
+import React, { useState } from "react";
+import { colors } from "../../constants/colors";
+import BackNavigateButton from "../../components/backNavigate";
+import { useAuth } from "../../contexts/authContext";
+import InputField from "../../components/inputField";
+import PrimaryButton from "../../components/primaryButton";
 
-const SigninTab = () => {
+const LoginTab = () => {
+  const { signIn } = useAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [repass, setRepass] = useState<string>("");
-
-  const [errorMessage, setErrorMessage] = useState<string>("");
-
-  const handleSignup = async () => {
-    if (password !== repass) {
-      setErrorMessage("As senhas não coincidem.");
-      return;
-    }
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-    } catch (error) {
-      console.log("Erro ao criar usuário: ", error);
-    }
-  };
 
   return (
-    <SafeAreaView style={styles.imgBg}>
+    <View style={styles.imgBg}>
       <ImageBackground
-        source={require("../../assets/landing.png")}
+        source={require("../../../assets/landing.png")}
         style={styles.imgBg}
       >
         <LinearGradient
@@ -51,7 +34,7 @@ const SigninTab = () => {
         </LinearGradient>
         <View style={styles.modal}>
           <View style={styles.formContainer}>
-            <Text style={styles.title}>Cadastrar</Text>
+            <Text style={styles.title}>Acessar</Text>
             <InputField
               placeholder="E-mail"
               iconName="mail"
@@ -59,30 +42,27 @@ const SigninTab = () => {
               callback={setEmail}
             />
             <InputField
-              placeholder="Crie uma senha"
+              placeholder="Senha"
               iconName="key"
+              secure={true}
               callback={setPassword}
-              secure={true}
-            />
-            <InputField
-              placeholder="Repita a senha"
-              iconName="key"
-              callback={setRepass}
-              secure={true}
             />
             <PrimaryButton
-              textContent={"Criar conta"}
-              action={handleSignup}
+              textContent={"Login"}
+              action={signIn}
               params={[email, password]}
             />
+            <TouchableOpacity>
+              <Text style={styles.forgot}>Esqueceu sua senha?</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ImageBackground>
-    </SafeAreaView>
+    </View>
   );
 };
 
-export default SigninTab;
+export default LoginTab;
 
 const styles = StyleSheet.create({
   imgBg: {

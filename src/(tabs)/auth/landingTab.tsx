@@ -1,18 +1,17 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { LandingTabNavigationProp } from "../types/navigation";
+import { LandingTabNavigationProp } from "../../types/navigation";
 import { LinearGradient } from "expo-linear-gradient";
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
-import LandingButton from "../components/LandingButton";
-import { colors } from "../constants/colors";
-import { SafeAreaView } from "react-native-safe-area-context";
+import LandingButton from "../../components/LandingButton";
+import { colors } from "../../constants/colors";
 
 const LandingTab = () => {
   const navigation = useNavigation<LandingTabNavigationProp>();
 
   return (
     <ImageBackground
-      source={require("../../assets/landing.png")}
+      source={require("../../../assets/landing.png")}
       style={styles.imgBg}
     >
       <LinearGradient
