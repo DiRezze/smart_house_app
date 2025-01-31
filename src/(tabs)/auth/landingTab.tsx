@@ -1,25 +1,16 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { LandingTabNavigationProp } from "../../types/navigation";
-import { LinearGradient } from "expo-linear-gradient";
-import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import LandingButton from "../../components/LandingButton";
 import { colors } from "../../constants/colors";
+import AuthLayout from "../../layouts/authLayout";
 
 const LandingTab = () => {
   const navigation = useNavigation<LandingTabNavigationProp>();
 
   return (
-    <ImageBackground
-      source={require("../../../assets/landing.png")}
-      style={styles.imgBg}
-    >
-      <LinearGradient
-        style={styles.imgBg}
-        colors={["#060606", "#0606060c"]}
-        start={{ x: 0, y: 1 }}
-        end={{ x: 0, y: 0 }}
-      ></LinearGradient>
+    <AuthLayout backButton={false}>
       <View style={styles.modal}>
         <Text style={styles.appName}>Projeto FETEPS</Text>
         <LandingButton
@@ -34,7 +25,7 @@ const LandingTab = () => {
         />
         <Text style={styles.freepik}>Background designed by Freepik</Text>
       </View>
-    </ImageBackground>
+    </AuthLayout>
   );
 };
 

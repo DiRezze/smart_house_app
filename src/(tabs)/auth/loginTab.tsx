@@ -1,17 +1,10 @@
-import {
-  ImageBackground,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { colors } from "../../constants/colors";
-import BackNavigateButton from "../../components/backNavigate";
 import { useAuth } from "../../contexts/authContext";
 import InputField from "../../components/inputField";
 import PrimaryButton from "../../components/primaryButton";
+import AuthLayout from "../../layouts/authLayout";
 
 const LoginTab = () => {
   const { signIn } = useAuth();
@@ -19,46 +12,33 @@ const LoginTab = () => {
   const [password, setPassword] = useState<string>("");
 
   return (
-    <View style={styles.imgBg}>
-      <ImageBackground
-        source={require("../../../assets/landing.png")}
-        style={styles.imgBg}
-      >
-        <LinearGradient
-          style={styles.imgBg}
-          colors={["#060606", "#0606060c"]}
-          start={{ x: 0, y: 1 }}
-          end={{ x: 0, y: 0 }}
-        >
-          <BackNavigateButton />
-        </LinearGradient>
-        <View style={styles.modal}>
-          <View style={styles.formContainer}>
-            <Text style={styles.title}>Acessar</Text>
-            <InputField
-              placeholder="E-mail"
-              iconName="mail"
-              secure={false}
-              callback={setEmail}
-            />
-            <InputField
-              placeholder="Senha"
-              iconName="key"
-              secure={true}
-              callback={setPassword}
-            />
-            <PrimaryButton
-              textContent={"Login"}
-              action={signIn}
-              params={[email, password]}
-            />
-            <TouchableOpacity>
-              <Text style={styles.forgot}>Esqueceu sua senha?</Text>
-            </TouchableOpacity>
-          </View>
+    <AuthLayout backButton={true}>
+      <View style={styles.modal}>
+        <View style={styles.formContainer}>
+          <Text style={styles.title}>Acessar</Text>
+          <InputField
+            placeholder="E-mail"
+            iconName="mail"
+            secure={false}
+            callback={setEmail}
+          />
+          <InputField
+            placeholder="Senha"
+            iconName="key"
+            secure={true}
+            callback={setPassword}
+          />
+          <PrimaryButton
+            textContent={"Login"}
+            action={signIn}
+            params={[email, password]}
+          />
+          <TouchableOpacity>
+            <Text style={styles.forgot}>Esqueceu sua senha?</Text>
+          </TouchableOpacity>
         </View>
-      </ImageBackground>
-    </View>
+      </View>
+    </AuthLayout>
   );
 };
 
