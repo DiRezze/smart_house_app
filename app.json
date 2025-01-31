@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "ProjetoFETEPS",
+    "slug": "intelliNest",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/rcsplash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#fefefe"
+    },
+    "ios": {
+      "supportsTablet": false
+    },
+    "android": {
+      "newArchEnabled": true,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#fefefe"
+      },
+      "package": "com.direzze.intelliNest",
+      "statusBar":{
+        "backgroundColor": "#fefefe",
+        "barStyle": "light-content"
+      } 
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a0477b65-1b98-4c79-8f8e-108f15ecbe31"
+      }
+    }
+  }
+}
