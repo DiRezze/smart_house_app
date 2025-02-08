@@ -60,6 +60,7 @@ const SigninTab = () => {
                 secure={false}
                 value={value}
                 callback={onChange}
+                errorMsg={errors.email?.message}
               />
             )}
             rules={{
@@ -80,6 +81,11 @@ const SigninTab = () => {
                 secure={true}
                 value={value}
                 callback={onChange}
+                errorMsg={
+                  errors.root?.message
+                    ? errors.root?.message
+                    : errors.password?.message
+                }
               />
             )}
             rules={{
@@ -100,14 +106,11 @@ const SigninTab = () => {
                 secure={true}
                 value={value}
                 callback={onChange}
+                errorMsg={errors.repassword?.message}
               />
             )}
             rules={{
               required: "Repita a senha",
-              minLength: {
-                value: 6,
-                message: "As senhas não coincidem.",
-              },
             }}
           />
 

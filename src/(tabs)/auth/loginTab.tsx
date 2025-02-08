@@ -40,6 +40,7 @@ const LoginTab = () => {
                 secure={false}
                 value={value}
                 callback={onChange}
+                errorMsg={errors.email?.message}
               />
             )}
             rules={{
@@ -60,6 +61,7 @@ const LoginTab = () => {
                 secure={true}
                 value={value}
                 callback={onChange}
+                errorMsg={errors.password?.message}
               />
             )}
             rules={{
