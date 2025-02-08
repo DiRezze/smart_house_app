@@ -5,33 +5,74 @@ import { useAuth } from "../../contexts/authContext";
 import InputField from "../../components/inputField";
 import PrimaryButton from "../../components/primaryButton";
 import AuthLayout from "../../layouts/authLayout";
+import { useForm, Controller } from "react-hook-form";
 
 const LoginTab = () => {
   const { signIn } = useAuth();
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = (data: { email: string; password: string }) => {
+    signIn(data.email, data.password);
+  };
 
   return (
     <AuthLayout backButton={true}>
       <View style={styles.modal}>
         <View style={styles.formContainer}>
           <Text style={styles.title}>Acessar</Text>
-          <InputField
-            placeholder="E-mail"
-            iconName="mail"
-            secure={false}
-            callback={setEmail}
+          <Controller
+            control={control}
+            name="email"
+            render={({ field: { onChange, value } }) => (
+              <InputField
+                placeholder="E-mail"
+                iconName="mail"
+                secure={false}
+                value={value}
+                callback={onChange}
+              />
+            )}
+            rules={{
+              required: "E-mail é obrigatório",
+              pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                message: "Formato de e-mail inválido",
+              },
+            }}
           />
-          <InputField
-            placeholder="Senha"
-            iconName="key"
-            secure={true}
-            callback={setPassword}
+          <Controller
+            control={control}
+            name="password"
+            render={({ field: { onChange, value } }) => (
+              <InputField
+                placeholder="Senha"
+                iconName="key"
+                secure={true}
+                value={value}
+                callback={onChange}
+              />
+            )}
+            rules={{
+              required: "Senha é obrigatória",
+              minLength: {
+                value: 6,
+                message: "A senha deve ter, pelo menos, 6 caracteres",
+              },
+            }}
           />
           <PrimaryButton
             textContent={"Login"}
-            action={signIn}
-            params={[email, password]}
+            action={handleSubmit(onSubmit)}
           />
           <TouchableOpacity>
             <Text style={styles.forgot}>Esqueceu sua senha?</Text>
@@ -62,7 +103,7 @@ const styles = StyleSheet.create({
     color: colors.dark.primary,
   },
   formContainer: {
-    backgroundColor: colors.dark.background,
+    backgroundColor: colors.dark.softBlack,
     width: "auto",
     display: "flex",
     flexDirection: "column",

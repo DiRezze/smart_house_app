@@ -12,7 +12,11 @@
       "backgroundColor": "#fefefe"
     },
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "bundleIdentifier": "com.direzze.intelliNest",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "newArchEnabled": true,
@@ -21,10 +25,10 @@
         "backgroundColor": "#fefefe"
       },
       "package": "com.direzze.intelliNest",
-      "statusBar":{
+      "statusBar": {
         "backgroundColor": "#fefefe",
         "barStyle": "light-content"
-      } 
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
