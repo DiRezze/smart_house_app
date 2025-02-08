@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { colors } from "../../constants/colors";
 import { auth } from "../../firebase/firebaseConfig";
 import PrimaryButton from "../../components/primaryButton";
@@ -6,19 +6,37 @@ import { StyleSheet, Text, View } from "react-native";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import InputField from "../../components/inputField";
 import AuthLayout from "../../layouts/authLayout";
+import { Controller, useForm } from "react-hook-form";
 
 const SigninTab = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [repass, setRepass] = useState<string>("");
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+      repassword: "",
+    },
+  });
 
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const handleSignup = async (data: {
+    email: string;
+    password: string;
+    repassword: string;
+  }) => {
+    const { email, password, repassword } = data;
 
-  const handleSignup = async () => {
-    if (password !== repass) {
-      setErrorMessage("As senhas não coincidem.");
+    if (password !== repassword) {
+      setError("repassword", {
+        type: "manual",
+        message: "As senhas não coincidem.",
+      });
       return;
     }
+
     try {
       await createUserWithEmailAndPassword(auth, email, password);
     } catch (error) {
@@ -31,28 +49,71 @@ const SigninTab = () => {
       <View style={styles.modal}>
         <View style={styles.formContainer}>
           <Text style={styles.title}>Cadastrar</Text>
-          <InputField
-            placeholder="E-mail"
-            iconName="mail"
-            secure={false}
-            callback={setEmail}
+
+          <Controller
+            control={control}
+            name="email"
+            render={({ field: { onChange, value } }) => (
+              <InputField
+                placeholder="E-mail"
+                iconName="mail"
+                secure={false}
+                value={value}
+                callback={onChange}
+              />
+            )}
+            rules={{
+              required: "E-mail é obrigatório",
+              pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                message: "Formato de e-mail inválido",
+              },
+            }}
           />
-          <InputField
-            placeholder="Crie uma senha"
-            iconName="key"
-            callback={setPassword}
-            secure={true}
+          <Controller
+            control={control}
+            name="password"
+            render={({ field: { onChange, value } }) => (
+              <InputField
+                placeholder="Crie uma senha"
+                iconName="key"
+                secure={true}
+                value={value}
+                callback={onChange}
+              />
+            )}
+            rules={{
+              required: "Senha é obrigatória",
+              minLength: {
+                value: 6,
+                message: "A senha deve ter pelo menos 6 caracteres",
+              },
+            }}
           />
-          <InputField
-            placeholder="Repita a senha"
-            iconName="key"
-            callback={setRepass}
-            secure={true}
+          <Controller
+            control={control}
+            name="repassword"
+            render={({ field: { onChange, value } }) => (
+              <InputField
+                placeholder="Repita a senha"
+                iconName="key"
+                secure={true}
+                value={value}
+                callback={onChange}
+              />
+            )}
+            rules={{
+              required: "Repita a senha",
+              minLength: {
+                value: 6,
+                message: "As senhas não coincidem.",
+              },
+            }}
           />
+
           <PrimaryButton
             textContent={"Criar conta"}
-            action={handleSignup}
-            params={[email, password]}
+            action={handleSubmit(handleSignup)}
           />
         </View>
       </View>
@@ -77,7 +138,7 @@ const styles = StyleSheet.create({
     color: colors.dark.primary,
   },
   formContainer: {
-    backgroundColor: colors.dark.background,
+    backgroundColor: colors.dark.softBlack,
     width: "auto",
     display: "flex",
     flexDirection: "column",

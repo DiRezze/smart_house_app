@@ -6,13 +6,15 @@ import { StatusBar } from "expo-status-bar";
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <AppRoutes />
-      <StatusBar
-        style="light"
-        backgroundColor="transparent"
-      />
-    </SafeAreaView>
+    <View style={styles.safeArea}>
+      <SafeAreaView style={styles.safeArea}>
+        <AppRoutes />
+        <StatusBar
+          style="light"
+          backgroundColor="transparent"
+        />
+      </SafeAreaView>
+    </View>
   );
 }
 

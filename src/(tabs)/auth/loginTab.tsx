@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import { colors } from "../../constants/colors";
 import { useAuth } from "../../contexts/authContext";
 import InputField from "../../components/inputField";
