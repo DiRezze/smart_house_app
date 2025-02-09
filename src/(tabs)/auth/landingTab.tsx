@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { LandingTabNavigationProp } from "../../types/navigation";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import LandingButton from "../../components/LandingButton";
 import { colors } from "../../constants/colors";
 import AuthLayout from "../../layouts/authLayout";
