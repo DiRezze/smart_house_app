@@ -6,9 +6,12 @@ import InputField from "../../components/inputField";
 import PrimaryButton from "../../components/primaryButton";
 import AuthLayout from "../../layouts/authLayout";
 import { useForm, Controller } from "react-hook-form";
+import { useNavigation } from "@react-navigation/native";
+import { LandingTabNavigationProp } from "../../types/navigation";
 
 const LoginTab = () => {
   const { signIn } = useAuth();
+  const navigation = useNavigation<LandingTabNavigationProp>();
 
   const {
     control,
@@ -76,7 +79,7 @@ const LoginTab = () => {
             textContent={"Login"}
             action={handleSubmit(onSubmit)}
           />
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("passReset")}>
             <Text style={styles.forgot}>Esqueceu sua senha?</Text>
           </TouchableOpacity>
         </View>
