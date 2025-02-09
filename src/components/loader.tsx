@@ -1,9 +1,13 @@
-import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, ActivityIndicator, StyleSheet } from "react-native";
+import { colors } from "../constants/colors";
 
 const Loader: React.FC = () => {
   return (
     <View style={styles.loaderContainer}>
-      <ActivityIndicator size="large" color="#3498db" />
+      <ActivityIndicator
+        size="large"
+        color={colors.dark.primary}
+      />
     </View>
   );
 };
@@ -11,8 +15,8 @@ const Loader: React.FC = () => {
 const styles = StyleSheet.create({
   loaderContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

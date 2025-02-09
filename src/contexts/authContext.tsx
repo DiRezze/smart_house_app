@@ -2,6 +2,9 @@ import React, { createContext, ReactNode, useContext, useState } from "react";
 import { auth, onAuthStateChanged, User } from "../firebase/firebaseConfig";
 import { doSignInWithEmailAndPassword, doSignOut } from "../firebase/auth";
 import Loader from "../components/loader";
+import { FirebaseError } from "firebase/app";
+import useToast from "../hooks/useToast";
+import { handleAuthError } from "../scripts/handleAuthError";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -20,7 +23,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const signIn = async (email: string, password: string) => {
+  const { showToast } = useToast();
+
+  const signIn = async (email: string, password: string): Promise<void> => {
     setLoading(true);
     try {
       const userCredential = await doSignInWithEmailAndPassword(
@@ -30,7 +35,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       setCurrentUser(userCredential.user);
       setIsAuthenticated(true);
     } catch (error) {
-      console.error("Erro ao autenticar", error);
+      if (error instanceof FirebaseError) {
+        const errorText = handleAuthError(error);
+        showToast(`Erro de autenticação: ${errorText}`, "long");
+      } else {
+        showToast(`Erro desconhecido: ${error}`, "short");
+      }
       setIsAuthenticated(false);
       setCurrentUser(null);
     } finally {
