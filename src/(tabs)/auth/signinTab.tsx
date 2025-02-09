@@ -1,16 +1,20 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { colors } from "../../constants/colors";
 import { auth } from "../../firebase/firebaseConfig";
 import PrimaryButton from "../../components/primaryButton";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import InputField from "../../components/inputField";
 import AuthLayout from "../../layouts/authLayout";
 import { Controller, useForm } from "react-hook-form";
 import useToast from "../../hooks/useToast";
+import { useNavigation } from "@react-navigation/native";
+import { LandingTabNavigationProp } from "../../types/navigation";
 
 const SigninTab = () => {
   const { showToast } = useToast();
+
+  const navigation = useNavigation<LandingTabNavigationProp>();
 
   const {
     control,
@@ -119,11 +123,13 @@ const SigninTab = () => {
               required: "Repita a senha",
             }}
           />
-
           <PrimaryButton
             textContent={"Criar conta"}
             action={handleSubmit(handleSignup)}
           />
+          <TouchableOpacity onPress={() => navigation.navigate("login")}>
+            <Text style={styles.secondaryText}>Já tem uma conta?</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </AuthLayout>
@@ -136,7 +142,7 @@ const styles = StyleSheet.create({
   modal: {
     backgroundColor: "#060606",
   },
-  forgot: {
+  secondaryText: {
     color: colors.dark.softGray,
     fontSize: 16,
   },
