@@ -6,19 +6,17 @@ import { Feather } from "@expo/vector-icons";
 const PassResetTab = () => {
   return (
     <AuthLayout backButton>
-      <View style={styles.modal}>
-        <View style={styles.formContainer}>
-          <Text style={styles.title}>Recuperação de senha</Text>
-          <View style={styles.warnContainer}>
-            <Feather
-              name="alert-triangle"
-              color={colors.dark.softWhite}
-              size={48}
-            />
-            <Text style={styles.warn}>
-              No momento, esta funcionalidade ainda está sendo trabalhada.
-            </Text>
-          </View>
+      <View style={styles.formContainer}>
+        <Text style={styles.title}>Recuperação de senha</Text>
+        <View style={styles.warnContainer}>
+          <Feather
+            name="alert-triangle"
+            color={colors.dark.softWhite}
+            size={48}
+          />
+          <Text style={styles.warn}>
+            No momento, esta funcionalidade ainda está sendo trabalhada.
+          </Text>
         </View>
       </View>
     </AuthLayout>
@@ -46,9 +44,6 @@ const styles = StyleSheet.create({
     padding: 8,
     gap: 8,
     minHeight: "75%",
-  },
-  modal: {
-    backgroundColor: "#060606",
   },
   warn: {
     color: colors.dark.softWhite,

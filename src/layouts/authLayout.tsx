@@ -4,6 +4,7 @@ import { ImageBackground, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BackNavigateButton from "../components/backNavigate";
 import { StatusBar } from "expo-status-bar";
+import LandingModal from "../components/landingModal";
 
 interface AuthLayoutProps {
   children: ReactNode;
@@ -25,7 +26,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children, backButton }) => {
         >
           {backButton ? <BackNavigateButton /> : null}
         </LinearGradient>
-        {children}
+        <LandingModal>{children}</LandingModal>
       </ImageBackground>
     </SafeAreaView>
   );
