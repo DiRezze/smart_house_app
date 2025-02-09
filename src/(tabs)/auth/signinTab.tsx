@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { colors } from "../../constants/colors";
 import { auth } from "../../firebase/firebaseConfig";
 import PrimaryButton from "../../components/primaryButton";
@@ -7,8 +7,11 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import InputField from "../../components/inputField";
 import AuthLayout from "../../layouts/authLayout";
 import { Controller, useForm } from "react-hook-form";
+import useToast from "../../hooks/useToast";
 
 const SigninTab = () => {
+  const { showToast } = useToast();
+
   const {
     control,
     handleSubmit,
@@ -39,8 +42,15 @@ const SigninTab = () => {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-    } catch (error) {
-      console.log("Erro ao criar usuário: ", error);
+    } catch (error: any) {
+      if (error.code === "auth/email-already-in-use") {
+        setError("email", {
+          type: "manual",
+          message: "Este e-mail já está em uso.",
+        });
+      } else {
+        showToast("Erro ao criar usuário. Tente novamente.", "long");
+      }
     }
   };
 
@@ -81,11 +91,7 @@ const SigninTab = () => {
                 secure={true}
                 value={value}
                 callback={onChange}
-                errorMsg={
-                  errors.root?.message
-                    ? errors.root?.message
-                    : errors.password?.message
-                }
+                errorMsg={errors.password?.message}
               />
             )}
             rules={{
@@ -137,7 +143,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 48,
     textAlign: "center",
-    fontWeight: 600,
+    fontWeight: "600",
     color: colors.dark.primary,
   },
   formContainer: {
