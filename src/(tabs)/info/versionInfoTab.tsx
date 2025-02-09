@@ -20,16 +20,16 @@ const VersionInfoTab: React.FC = () => {
             </Text>
             <Text style={styles.text}>
               <Text style={{ fontWeight: "bold" }}>Data: </Text>
-              Janeiro/2025
+              {info.versionDetails.date}
             </Text>
           </View>
         </BlankCard>
         <BlankCard>
           <View style={styles.container}>
-            <Text style={styles.text}>
-              <Text style={{ fontWeight: "bold" }}>Novidades: </Text>
-              {info.versionDetails.updates}.
+            <Text style={[styles.text, { fontWeight: "bold" }]}>
+              Novidades:{" "}
             </Text>
+            <Text style={styles.text}>{info.versionDetails.updates}.</Text>
           </View>
         </BlankCard>
       </View>
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: colors.dark.softWhite,
-    fontSize: 24,
+    fontSize: 16,
     textAlign: "left",
   },
   container: {

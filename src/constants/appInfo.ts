@@ -1,7 +1,8 @@
 export const info = {
   versionDetails: {
-    version: "0.1.0-alpha.1",
-    updates: "Não há alterações desde a versão anterior",
+    version: "0.1.0-alpha.2",
+    date: "Fevereiro/2025",
+    updates: `* Aprimoramento de performance nas telas de autenticação; \n* Atualização da splash screen; \n* Tratamento de erro na tela de cadastro; \n* Tratamento de erro na tela de login`,
   },
   credits: {
     devs: [

@@ -2,15 +2,12 @@ import {
   createStackNavigator,
   TransitionPresets,
 } from "@react-navigation/stack";
-import LoginTab from "../(tabs)/loginTab";
-import LandingTab from "../(tabs)/landingTab";
-import SigninTab from "../(tabs)/signinTab";
+import LoginTab from "../(tabs)/auth/loginTab";
+import LandingTab from "../(tabs)/auth/landingTab";
+import SigninTab from "../(tabs)/auth/signinTab";
+import PassResetTab from "../(tabs)/auth/passResetTab";
 
-const Stack = createStackNavigator<{
-  landing: undefined;
-  login: undefined;
-  signin: undefined;
-}>();
+const Stack = createStackNavigator();
 
 export const LandingStack = () => {
   return (
@@ -47,6 +44,11 @@ export const LandingStack = () => {
       <Stack.Screen
         name="signin"
         component={SigninTab}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="passReset"
+        component={PassResetTab}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

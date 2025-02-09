@@ -4,6 +4,7 @@ export type RootStackParamList = {
   Home: undefined;
   login: undefined;
   signin: undefined;
+  passReset: undefined;
 };
 
 export type LandingTabNavigationProp = StackNavigationProp<

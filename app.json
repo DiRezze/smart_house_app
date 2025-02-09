@@ -9,22 +9,26 @@
     "splash": {
       "image": "./assets/rcsplash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#fefefe"
+      "backgroundColor": "#0f0f0f"
     },
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "bundleIdentifier": "com.direzze.intelliNest",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "newArchEnabled": true,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#fefefe"
+        "backgroundColor": "#0f0f0f"
       },
       "package": "com.direzze.intelliNest",
-      "statusBar":{
-        "backgroundColor": "#fefefe",
+      "statusBar": {
+        "backgroundColor": "#0F0F0F",
         "barStyle": "light-content"
-      } 
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

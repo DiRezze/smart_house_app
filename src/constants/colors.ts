@@ -20,6 +20,8 @@ export const colors = {
     secondaryBackground: "#2C2C2C",
     gradientStart: "#060606",
     gradientEnd: "#0606060c",
+    errorPrimary: "#D23C3C",
+    errorBg: "#312727",
   },
   special: {
     coffee1: "#AD9A8A",
