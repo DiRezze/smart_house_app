@@ -5,6 +5,7 @@ import IconCard from "../components/iconCard";
 import { colors } from "../constants/colors";
 import { useNavigation } from "@react-navigation/native";
 import { ExternalLinkTo } from "../scripts/externalLink";
+import { info } from "../constants/appInfo";
 
 const InfoTab: React.FC = () => {
   const navigation = useNavigation();
@@ -14,7 +15,9 @@ const InfoTab: React.FC = () => {
       <Text style={styles.title}>Sobre</Text>
       <View style={styles.brand}>
         <AppTitle colorVersion={true} />
-        <Text style={styles.version}>Versão 0.1.0-alpha - Janeiro/2025</Text>
+        <Text style={styles.version}>
+          Versão {info.versionDetails.version} - {info.versionDetails.date}
+        </Text>
       </View>
 
       <IconCard
