@@ -49,6 +49,7 @@ class LandingPage extends StatelessWidget{
                 ),
                 padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
                 child: Column(
+                  spacing: 12,
                   children: [
 
                     Text("Nome do app",
@@ -65,9 +66,10 @@ class LandingPage extends StatelessWidget{
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16)))
                         ),
                         onPressed: () {
-                          print("Login clicado");
+                          Navigator.of(context).pushNamed('/login');
                         },
                         child: Text("Login",
                           style: TextStyle(
@@ -81,18 +83,17 @@ class LandingPage extends StatelessWidget{
 
                     ),
 
-                    SizedBox(height: 12),
 
                     SizedBox(
                       width: double.infinity,
                       height: 42,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent, side: BorderSide(color: Colors.green, width: 2)
-
+                          backgroundColor: Colors.transparent, side: BorderSide(color: Colors.green, width: 2),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16)))
                         ),
                         onPressed: () {
-                          print("Cadastro clicado");
+                          Navigator.of(context).pushNamed('/login');
                         },
                         child: Text("Cadastro",
                           style: TextStyle(
