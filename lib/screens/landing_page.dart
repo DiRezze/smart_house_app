@@ -93,7 +93,7 @@ class LandingPage extends StatelessWidget{
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16)))
                         ),
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/login');
+                          Navigator.of(context).pushNamed('/signup');
                         },
                         child: Text("Cadastro",
                           style: TextStyle(
