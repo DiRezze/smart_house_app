@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:smart_house_app/widgets/layouts/auth_layout.dart';
 

@@ -9,6 +9,7 @@ import 'package:smart_house_app/screens/signup_page.dart';
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
 
+    // ignore: unused_local_variable
     final args = settings.arguments;
 
     switch (settings.name) {

@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:smart_house_app/theme/app_colors.dart';
 
 class LandingPage extends StatelessWidget{
 
@@ -65,7 +66,7 @@ class LandingPage extends StatelessWidget{
                       height: 42,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
+                          backgroundColor: AppColors.primary,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16)))
                         ),
                         onPressed: () {
@@ -75,7 +76,7 @@ class LandingPage extends StatelessWidget{
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
 
@@ -89,7 +90,7 @@ class LandingPage extends StatelessWidget{
                       height: 42,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent, side: BorderSide(color: Colors.green, width: 2),
+                          backgroundColor: Colors.transparent, side: BorderSide(color: AppColors.primary, width: 2),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16)))
                         ),
                         onPressed: () {
@@ -97,9 +98,9 @@ class LandingPage extends StatelessWidget{
                         },
                         child: Text("Cadastro",
                           style: TextStyle(
-                            color: Colors.green,
+                            color: AppColors.primary,
                             fontSize: 20,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
 

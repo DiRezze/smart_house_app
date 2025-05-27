@@ -76,7 +76,7 @@ class AuthLayout extends StatelessWidget {
                       ),
                       child: Text(pageTitle,
                         style: TextStyle(
-                            color: Colors.green,
+                            color: AppColors.primary,
                             fontWeight: FontWeight.bold,
                             fontSize: 38
                         ),
