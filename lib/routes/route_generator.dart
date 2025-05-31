@@ -5,6 +5,7 @@ import 'package:smart_house_app/routes/route_transitions.dart';
 import 'package:smart_house_app/screens/landing_page.dart';
 import 'package:smart_house_app/screens/login_page.dart';
 import 'package:smart_house_app/screens/signup_page.dart';
+import 'package:smart_house_app/screens/home_page.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -19,6 +20,8 @@ class RouteGenerator {
         return RouteTransitions.slideFromRight(LoginPage());
       case '/signup':
         return RouteTransitions.slideFromRight(SignupPage());
+      case '/home':
+        return RouteTransitions.slideFromBottom(HomePage());
       default:
         return MaterialPageRoute(builder: (_)=>LandingPage());
     }
