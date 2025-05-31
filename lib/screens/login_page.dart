@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
         email: _email,
         password: _password,
       );
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, '/app');
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Erro ao fazer login: ${e.toString()}")),

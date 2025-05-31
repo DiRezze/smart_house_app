@@ -28,7 +28,7 @@ class _SignupPageState extends State<SignupPage> {
         );
 
         if (mounted) {
-          Navigator.pushReplacementNamed(context, '/home');
+          Navigator.pushReplacementNamed(context, '/app');
         }
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(

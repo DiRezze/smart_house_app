@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:smart_house_app/routes/route_generator.dart';
 import 'package:flutter/services.dart';
 import 'package:smart_house_app/services/firebase_options.dart';
+import 'package:smart_house_app/theme/app_colors.dart';
 
 Future<void> main() async {
 
@@ -32,7 +33,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.greenAccent),
+        scaffoldBackgroundColor: AppColors.background,
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.greenAccent,
+        ),
         useMaterial3: true,
       ),
       initialRoute: '/',
