@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_house_app/routes/require_auth.dart';
 import 'package:smart_house_app/routes/route_transitions.dart';
 
 // app pages
@@ -21,7 +22,7 @@ class RouteGenerator {
       case '/signup':
         return RouteTransitions.slideFromRight(SignupPage());
       case '/home':
-        return RouteTransitions.slideFromBottom(HomePage());
+        return RouteTransitions.slideFromBottom(RequireAuth(child: HomePage()));
       default:
         return MaterialPageRoute(builder: (_)=>LandingPage());
     }

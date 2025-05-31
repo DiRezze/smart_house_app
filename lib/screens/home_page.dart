@@ -9,16 +9,18 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
+        child: SafeArea(
+          child:Column(
           children: [
-            Text("Você está logado"),
-            ElevatedButton(
-              onPressed: () {
-                AuthService().signOut();
-              },
-              child: const Text('Sair'),
-            ),
-          ],
+              Text("Você está logado"),
+              ElevatedButton(
+                onPressed: () {
+                  AuthService().signOut();
+                },
+                child: const Text('Sair'),
+              ),
+            ],
+          ),
         )
       ),
     );
