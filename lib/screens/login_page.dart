@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_house_app/services/auth_service.dart';
+import 'package:smart_house_app/widgets/landing_button.dart';
 import 'package:smart_house_app/widgets/layouts/auth_layout.dart';
 
 class LoginPage extends StatefulWidget {
@@ -71,18 +72,27 @@ class _LoginPageState extends State<LoginPage> {
               onSaved: (value) => _password = value!,
             ),
             const SizedBox(height: 24),
-            ElevatedButton(
+            LandingButton(
+              text: "Entrar",
+              primary: true,
               onPressed: _isLoading ? null : _login,
               child: _isLoading
-                  ? const CircularProgressIndicator()
-                  : const Text("Entrar"),
+                  ? SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                  strokeWidth: 2,
+                ),
+              )
+                  : null,
             ),
             const SizedBox(height: 12),
             TextButton(
               onPressed: () {
                 Navigator.pushReplacementNamed(context, '/signup');
               },
-              child: const Text("Não tem conta? Cadastre-se", style: TextStyle(color: Colors.white)),
+              child: const Text("Ainda não tem conta? Registre-se", style: TextStyle(color: Colors.white)),
             ),
           ],
         ),

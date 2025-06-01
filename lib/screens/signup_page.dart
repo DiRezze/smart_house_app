@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_house_app/widgets/landing_button.dart';
 import 'package:smart_house_app/widgets/layouts/auth_layout.dart';
 import 'package:smart_house_app/services/auth_service.dart';
 
@@ -78,9 +79,16 @@ class _SignupPageState extends State<SignupPage> {
             const SizedBox(height: 24),
             _isLoading
                 ? const CircularProgressIndicator()
-                : ElevatedButton(
-              onPressed: _submit,
-              child: const Text('Cadastrar'),
+                : LandingButton(text: "Cadastrar",
+                primary: true,
+                onPressed: _submit
+            ),
+            const SizedBox(height: 12),
+            TextButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, '/login');
+              },
+              child: const Text("Já tem uma conta? Entre agora mesmo", style: TextStyle(color: Colors.white)),
             ),
           ],
         ),

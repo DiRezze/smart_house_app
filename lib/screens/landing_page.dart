@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
+import 'package:smart_house_app/widgets/landing_button.dart';
 
 class LandingPage extends StatelessWidget{
 
@@ -7,126 +8,96 @@ class LandingPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
-    return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        body: Stack(
+          fit: StackFit.expand,
+          children: [
 
-          Image.asset(
-            'assets/landing.png',
-            fit: BoxFit.cover,
-          ),
-
-          Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: [
-                    Color.fromRGBO(0, 0, 0, 1.0),
-                    Color.fromRGBO(0, 0, 0, 1.0),
-                    Colors.transparent,
-                  ],
-                  stops: [0.0, 0.30, 1.0],
-                  tileMode: TileMode.clamp,
-                ),
-              ),
+            Image.asset(
+              'assets/landing.png',
+              fit: BoxFit.cover,
             ),
-          ),
 
-
-          SafeArea(
-            child:Align(
-              alignment: Alignment.bottomCenter,
+            Align(
+              alignment: Alignment.topCenter,
               child: Container(
-                width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(16),
+                  gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [
+                      Color.fromRGBO(0, 0, 0, 1.0),
+                      Color.fromRGBO(0, 0, 0, 1.0),
+                      Colors.transparent,
+                    ],
+                    stops: [0.0, 0.30, 1.0],
+                    tileMode: TileMode.clamp,
+                  ),
                 ),
-                padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                child: Column(
-                  spacing: 12,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
+              ),
+            ),
 
-                    Text("SafeNest",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 48
-                      ),
-                    ),
 
-                    SizedBox(
-                      width: double.infinity,
-                      height: 42,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16)))
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/login');
-                        },
-                        child: Text("Login",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
+            SafeArea(
+              child:Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
+                  child: Column(
+                    spacing: 12,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
 
-                      ),
-
-                    ),
-
-                    SizedBox(
-                      width: double.infinity,
-                      height: 42,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.transparent, side: BorderSide(color: AppColors.primary, width: 2),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16)))
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/signup');
-                        },
-                        child: Text("Cadastro",
-                          style: TextStyle(
-                            color: AppColors.primary,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-
-                      ),
-
-                    ),
-
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
-                      child: Text("Background designed by FreePik",
+                      Text("SafeNest",
                         style: TextStyle(
-                            color: Colors.grey,
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 12
+                            fontSize: 48
                         ),
                       ),
-                    ),
 
-                  ],
+                      LandingButton(
+                          text: "Login",
+                          primary: true,
+                          onPressed: () => Navigator.of(context).pushNamed('/login')
+                      ),
+
+                      LandingButton(
+                          text: "Cadastro",
+                          primary: false,
+                          onPressed: () => Navigator.of(context).pushNamed('/signup')
+                      ),
+
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
+                        child: Text("Background designed by FreePik",
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12
+                          ),
+                        ),
+                      ),
+
+                    ],
+                  ),
                 ),
+
               ),
 
             ),
 
-          ),
-
-        ],
+          ],
+        ),
       ),
     );
+
   }
 }
