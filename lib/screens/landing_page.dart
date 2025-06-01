@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
 
@@ -9,7 +7,6 @@ class LandingPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
-    final height30Percent = MediaQuery.of(context).size.height * 0.3;
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -23,27 +20,28 @@ class LandingPage extends StatelessWidget{
           Align(
             alignment: Alignment.topCenter,
             child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [
-                      Color.fromRGBO(0, 0, 0, 1.0),
-                      Color.fromRGBO(0, 0, 0, 1.0),
-                      Colors.transparent,
-                    ],
-                    stops: [0.0, 0.30, 1.0],
-                    tileMode: TileMode.clamp,
-                  ),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [
+                    Color.fromRGBO(0, 0, 0, 1.0),
+                    Color.fromRGBO(0, 0, 0, 1.0),
+                    Colors.transparent,
+                  ],
+                  stops: [0.0, 0.30, 1.0],
+                  tileMode: TileMode.clamp,
                 ),
+              ),
             ),
           ),
 
-            Align(
+
+          SafeArea(
+            child:Align(
               alignment: Alignment.bottomCenter,
               child: Container(
                 width: double.infinity,
-                height: height30Percent,
                 decoration: BoxDecoration(
                   color: Colors.black,
                   borderRadius: BorderRadius.circular(16),
@@ -51,9 +49,10 @@ class LandingPage extends StatelessWidget{
                 padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
                 child: Column(
                   spacing: 12,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
 
-                    Text("Nome do app",
+                    Text("SafeNest",
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -66,8 +65,8 @@ class LandingPage extends StatelessWidget{
                       height: 42,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primary,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16)))
+                            backgroundColor: AppColors.primary,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16)))
                         ),
                         onPressed: () {
                           Navigator.of(context).pushNamed('/login');
@@ -84,13 +83,12 @@ class LandingPage extends StatelessWidget{
 
                     ),
 
-
                     SizedBox(
                       width: double.infinity,
                       height: 42,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent, side: BorderSide(color: AppColors.primary, width: 2),
+                            backgroundColor: Colors.transparent, side: BorderSide(color: AppColors.primary, width: 2),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16)))
                         ),
                         onPressed: () {
@@ -108,13 +106,14 @@ class LandingPage extends StatelessWidget{
 
                     ),
 
-                    Spacer(),
-
-                    Text("Background designed by FreePik",
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
+                      child: Text("Background designed by FreePik",
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12
+                        ),
                       ),
                     ),
 
@@ -124,7 +123,7 @@ class LandingPage extends StatelessWidget{
 
             ),
 
-          
+          ),
 
         ],
       ),
