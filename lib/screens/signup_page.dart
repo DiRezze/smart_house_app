@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_house_app/widgets/auth_input.dart';
 import 'package:smart_house_app/widgets/landing_button.dart';
 import 'package:smart_house_app/widgets/layouts/auth_layout.dart';
 import 'package:smart_house_app/services/auth_service.dart';
@@ -49,32 +50,22 @@ class _SignupPageState extends State<SignupPage> {
         key: _formKey,
         child: Column(
           children: [
-            TextFormField(
+            AuthInputField(
+              labelText: "Email",
+              prefixIcon: Icons.alternate_email_rounded,
+              keyboardType: TextInputType.emailAddress,
+              obscureText: false,
               controller: _emailController,
-              style: const TextStyle(color: Colors.white),
-              decoration: const InputDecoration(
-                labelText: 'Email',
-                labelStyle: TextStyle(color: Colors.white70),
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) return 'Digite um e-mail';
-                if (!value.contains('@')) return 'E-mail inválido';
-                return null;
-              },
+              validator: (value) => value != null && value.contains('@') ? null : 'Email inválido',
             ),
             const SizedBox(height: 16),
-            TextFormField(
-              controller: _passwordController,
-              style: const TextStyle(color: Colors.white),
+            AuthInputField(
+              labelText: "Senha",
+              prefixIcon: Icons.lock_outline,
+              keyboardType: TextInputType.visiblePassword,
               obscureText: true,
-              decoration: const InputDecoration(
-                labelText: 'Senha',
-                labelStyle: TextStyle(color: Colors.white70),
-              ),
-              validator: (value) {
-                if (value == null || value.length < 6) return 'Mínimo de 6 caracteres';
-                return null;
-              },
+              controller: _passwordController,
+              validator: (value) => value != null && value.length >= 6 ? null : 'Mínimo 6 caracteres',
             ),
             const SizedBox(height: 24),
             _isLoading

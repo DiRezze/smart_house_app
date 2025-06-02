@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smart_house_app/theme/app_colors.dart';
 import 'package:smart_house_app/widgets/landing_button.dart';
 
 class LandingPage extends StatelessWidget{

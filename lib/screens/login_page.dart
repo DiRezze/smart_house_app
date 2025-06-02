@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_house_app/services/auth_service.dart';
+import 'package:smart_house_app/widgets/auth_input.dart';
 import 'package:smart_house_app/widgets/landing_button.dart';
 import 'package:smart_house_app/widgets/layouts/auth_layout.dart';
 
@@ -48,24 +49,19 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'Email',
-                labelStyle: TextStyle(color: Colors.white),
-              ),
-              style: const TextStyle(color: Colors.white),
+            AuthInputField(
+              labelText: 'Email',
+              prefixIcon: Icons.alternate_email_rounded,
               keyboardType: TextInputType.emailAddress,
               validator: (value) =>
               value != null && value.contains('@') ? null : 'Email inválido',
               onSaved: (value) => _email = value!.trim(),
             ),
             const SizedBox(height: 16),
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'Senha',
-                labelStyle: TextStyle(color: Colors.white),
-              ),
-              style: const TextStyle(color: Colors.white),
+            AuthInputField(
+              labelText: 'Senha',
+              prefixIcon: Icons.lock_outline,
+              keyboardType: TextInputType.visiblePassword,
               obscureText: true,
               validator: (value) =>
               value != null && value.length >= 6 ? null : 'Mínimo 6 caracteres',
