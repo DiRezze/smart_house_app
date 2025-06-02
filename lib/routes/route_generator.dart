@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_house_app/routes/auth_verifier.dart';
 import 'package:smart_house_app/routes/require_auth.dart';
 import 'package:smart_house_app/routes/route_transitions.dart';
 import 'package:smart_house_app/screens/app_page.dart';
@@ -8,6 +9,7 @@ import 'package:smart_house_app/screens/landing_page.dart';
 import 'package:smart_house_app/screens/login_page.dart';
 import 'package:smart_house_app/screens/signup_page.dart';
 import 'package:smart_house_app/screens/home_page.dart';
+import 'package:smart_house_app/services/auth_service.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -17,7 +19,7 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_)=> LandingPage());
+        return MaterialPageRoute(builder: (_) => AuthVerifier(authService: AuthService(),child: LandingPage(),));
       case '/login':
         return RouteTransitions.slideFromRight(LoginPage());
       case '/signup':

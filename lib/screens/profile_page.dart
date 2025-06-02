@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:smart_house_app/services/auth_service.dart';
-import 'package:smart_house_app/theme/app_colors.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
