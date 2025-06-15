@@ -21,6 +21,7 @@ class UserHeader extends StatefulWidget {
 
 class _UserHeaderState extends State<UserHeader> {
   String? displayName;
+  double _nameOpacity = 0.0;
 
   @override
   void initState() {
@@ -32,6 +33,7 @@ class _UserHeaderState extends State<UserHeader> {
     final name = await PrefsService().getString('displayName');
     setState(() {
       displayName = name ?? 'usuário';
+      _nameOpacity = 1.0;
     });
   }
 
@@ -43,29 +45,39 @@ class _UserHeaderState extends State<UserHeader> {
         children: [
           const Icon(Icons.house_rounded, color: Colors.white),
           const SizedBox(width: 8),
-          const Text(
-            "Olá,",
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.w600
-            ),
+          AnimatedOpacity(
+            duration: const Duration(milliseconds: 100),
+            opacity: _nameOpacity,
+            curve: Curves.easeIn,
+              child: Text(
+                "Olá,",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600
+                ),
+              ),
           ),
           const SizedBox(width: 4),
-          ShaderMask(
-            shaderCallback: (bounds) => const LinearGradient(
-              colors: [
-                Color(0xFF53A0FD),
-                AppColors.primary,
-              ],
-            ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)),
-            blendMode: BlendMode.srcIn,
-            child: Text(
-              displayName ?? 'Usuário',
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
+          AnimatedOpacity(
+            duration: const Duration(milliseconds: 300),
+            opacity: _nameOpacity,
+            curve: Curves.easeIn,
+            child: ShaderMask(
+              shaderCallback: (bounds) => const LinearGradient(
+                colors: [
+                  AppColors.analogPrimary,
+                  AppColors.primary,
+                ],
+              ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)),
+              blendMode: BlendMode.srcIn,
+              child: Text(
+                displayName ?? 'Usuário',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 18,
+                ),
               ),
             ),
           ),
