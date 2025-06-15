@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_house_app/services/meta_service.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
 import 'package:smart_house_app/widgets/app_input.dart';
 
@@ -17,6 +20,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final _birthdateController = TextEditingController();
   DateTime? _selectedBirthdate;
 
+  final user = FirebaseAuth.instance.currentUser;
+  get uid => user?.uid;
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -26,26 +32,59 @@ class _EditProfilePageState extends State<EditProfilePage> {
     super.dispose();
   }
 
-  void _saveProfile() {
+  void _saveProfile() async {
     if (_formKey.currentState?.validate() ?? false) {
-      // TODO: implementar salvamento no Firebase Realtime DB
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+      try {
+        final db = FirebaseDatabase.instance;
+        final ref = db.ref("users/$uid/meta");
+
+        final data = {
+          "displayName": _nameController.text.trim(),
+          "lastName": _lastNameController.text.trim(),
+          "phone": _phoneController.text.trim(),
+          "birthdate": _selectedBirthdate?.toIso8601String(),
+          "updatedAt": DateTime.now().toIso8601String(),
+        };
+
+        await ref.set(data);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
             content: Row(
-              spacing: 8,
               children: [
                 Icon(Icons.check, color: AppColors.primary, size: 24,),
+                const SizedBox(width: 8),
                 const Text('Perfil atualizado!'),
               ],
             ),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8)
+                borderRadius: BorderRadius.circular(8)
             ),
             behavior: SnackBarBehavior.floating,
             duration: const Duration(seconds: 3),
-        ),
-      );
-      Navigator.pop(context);
+          ),
+        );
+        await MetaService().updateMeta();
+        Navigator.pop(context);
+      } catch (e) {
+        print(e);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                Icon(Icons.error, color: Colors.red, size: 24,),
+                const SizedBox(width: 8),
+                const Text("Erro ao salvar"),
+              ],
+            ),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8)
+            ),
+            behavior: SnackBarBehavior.floating,
+            duration: const Duration(seconds: 3),
+          ),
+        );
+      }
     }
   }
 
@@ -81,7 +120,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 32), // Ajuste esse valor se quiser mais/menos espaço do topo
+                        padding: const EdgeInsets.only(top: 0),
                         child: TextButton.icon(
                           onPressed: () => Navigator.of(context).pop(),
                           icon: const Icon(Icons.chevron_left, color: Colors.white),

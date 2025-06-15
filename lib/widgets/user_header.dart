@@ -1,19 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:smart_house_app/services/meta_service.dart';
+import 'package:smart_house_app/services/prefs_service.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
 
-class UserHeader extends StatelessWidget {
-  final String? name;
+class UserHeader extends StatefulWidget {
   final String? location;
   final String? avatarUrl;
   final VoidCallback? onEdit;
 
   const UserHeader({
     super.key,
-    this.name,
     this.location,
     this.avatarUrl,
     this.onEdit,
   });
+
+  @override
+  State<UserHeader> createState() => _UserHeaderState();
+}
+
+class _UserHeaderState extends State<UserHeader> {
+  String? displayName;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadDisplayName();
+  }
+
+  Future<void> _loadDisplayName() async {
+    final name = await PrefsService().getString('displayName');
+    setState(() {
+      displayName = name ?? 'usuário';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +43,12 @@ class UserHeader extends StatelessWidget {
         children: [
           const Icon(Icons.house_rounded, color: Colors.white),
           const SizedBox(width: 8),
-          Text(
+          const Text(
             "Olá,",
             style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.w600
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w600
             ),
           ),
           const SizedBox(width: 4),
@@ -41,7 +61,7 @@ class UserHeader extends StatelessWidget {
             ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)),
             blendMode: BlendMode.srcIn,
             child: Text(
-              name ?? 'usuário',
+              displayName ?? 'Usuário',
               style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w700,
@@ -53,7 +73,9 @@ class UserHeader extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.grid_view_rounded),
             color: Colors.white,
-            onPressed: (){},
+            onPressed:  () async {
+              await MetaService().updateMeta();
+            },
           ),
         ],
       ),

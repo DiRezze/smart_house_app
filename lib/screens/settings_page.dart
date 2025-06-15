@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_house_app/services/auth_service.dart';
+import 'package:smart_house_app/services/prefs_service.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -25,6 +26,7 @@ class SettingsPage extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: () {
                 AuthService().signOut();
+                PrefsService().remove('displayName');
               },
               label: Text("Desconectar"),
               icon: const Icon(Icons.logout),

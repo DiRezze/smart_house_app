@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_house_app/services/auth_service.dart';
+import 'package:smart_house_app/services/meta_service.dart';
 import 'package:smart_house_app/widgets/auth_input.dart';
 import 'package:smart_house_app/widgets/landing_button.dart';
 import 'package:smart_house_app/widgets/layouts/auth_layout.dart';
@@ -30,6 +31,7 @@ class _LoginPageState extends State<LoginPage> {
         email: _email,
         password: _password,
       );
+      await MetaService().updateMeta();
       Navigator.pushReplacementNamed(context, '/app');
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
