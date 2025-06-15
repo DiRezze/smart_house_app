@@ -70,7 +70,7 @@ class ProfilePage extends StatelessWidget {
                           color: AppColors.gray,
                           size: 18,
                         ),
-                        onPressed: () {},
+                        onPressed: () => Navigator.of(context).pushNamed("/edit-profile"),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,
                           side: BorderSide(
