@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_house_app/services/prefs_service.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -12,6 +13,9 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
   late AnimationController _controller;
   late Animation<Offset> _slideAnimation;
   late Animation<double> _fadeAnimation;
+  String? displayName;
+  double _nameOpacity = 0.0;
+
 
   @override
   void initState() {
@@ -38,12 +42,22 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
     ));
 
     _controller.forward();
+
+    _loadDisplayName();
   }
 
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  Future<void> _loadDisplayName() async {
+    final name = await PrefsService().getString('displayName');
+    setState(() {
+      displayName = name ?? 'Usuário';
+      _nameOpacity = 1.0;
+    });
   }
 
   @override
@@ -69,19 +83,35 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                 children: [
                   Row(
                     children: [
-                      CircleAvatar(
-                        radius: 32,
-                        backgroundColor: AppColors.primary,
-                        child: Icon(Icons.person, color: Colors.white, size: 42,),
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Container(
+                            width: 64,
+                            height: 64,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              gradient: LinearGradient(
+                                colors: [AppColors.primary, AppColors.analogPrimary],                             begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                            ),
+                          ),
+                          Icon(Icons.person_rounded, color: Colors.white, size: 42),
+                        ],
                       ),
                       SizedBox(width: 16),
                       Expanded(
-                        child: Text(
-                          'Usuário(a)',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                        child: AnimatedOpacity(
+                            opacity: _nameOpacity,
+                            duration: const Duration(milliseconds: 200),
+                          child: Text(
+                            displayName ?? "Usuário",
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),

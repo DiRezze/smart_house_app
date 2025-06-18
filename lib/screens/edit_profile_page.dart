@@ -67,7 +67,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
         await MetaService().updateMeta();
         Navigator.pop(context);
       } catch (e) {
-        print(e);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Row(

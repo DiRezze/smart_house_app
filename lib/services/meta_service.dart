@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:smart_house_app/services/prefs_service.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -24,7 +25,7 @@ class MetaService {
       }
     }
     catch (e) {
-      print("Erro ao atualizar metadados");
+      print("Erro ao atualizar metadados: $e");
     }
 
   }

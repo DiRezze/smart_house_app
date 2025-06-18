@@ -40,7 +40,7 @@ class _UserHeaderState extends State<UserHeader> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
       child: Row(
         children: [
           const Icon(Icons.house_rounded, color: Colors.white),

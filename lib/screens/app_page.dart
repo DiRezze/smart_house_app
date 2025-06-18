@@ -12,7 +12,6 @@ class MainAppPage extends StatefulWidget {
 }
 
 class _MainAppPageState extends State<MainAppPage> {
-  //TODO: manter o índice como 1 até finalizar a página de perfil
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
