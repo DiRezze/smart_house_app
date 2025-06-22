@@ -17,8 +17,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final _nameController = TextEditingController();
   final _lastNameController = TextEditingController();
   final _phoneController = TextEditingController();
-  final _birthdateController = TextEditingController();
-  DateTime? _selectedBirthdate;
+
+  bool _isLoading = false;
 
   final user = FirebaseAuth.instance.currentUser;
   get uid => user?.uid;
@@ -28,12 +28,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _nameController.dispose();
     _lastNameController.dispose();
     _phoneController.dispose();
-    _birthdateController.dispose();
     super.dispose();
   }
 
   void _saveProfile() async {
     if (_formKey.currentState?.validate() ?? false) {
+      setState(() => _isLoading = true);
       try {
         final db = FirebaseDatabase.instance;
         final ref = db.ref("users/$uid/meta");
@@ -42,11 +42,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
           "displayName": _nameController.text.trim(),
           "lastName": _lastNameController.text.trim(),
           "phone": _phoneController.text.trim(),
-          "birthdate": _selectedBirthdate?.toIso8601String(),
           "updatedAt": DateTime.now().toIso8601String(),
         };
 
         await ref.set(data);
+
+        if (!mounted) return;
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -65,6 +66,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
         );
         await MetaService().updateMeta();
+
+        setState(() => _isLoading = false );
+
+        if (!mounted) return;
+
         Navigator.pop(context);
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -84,23 +90,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
         );
       }
-    }
-  }
-
-  Future<void> _selectDate() async {
-    final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: _selectedBirthdate ?? DateTime(2000, 1, 1),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
-      locale: const Locale('pt', 'BR'),
-    );
-    if (pickedDate != null) {
-      setState(() {
-        _selectedBirthdate = pickedDate;
-        _birthdateController.text =
-        "${pickedDate.day.toString().padLeft(2, '0')}/${pickedDate.month.toString().padLeft(2, '0')}/${pickedDate.year}";
-      });
     }
   }
 
@@ -182,7 +171,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           ),
                         ),
                         onPressed: _saveProfile,
-                        child: const Text(
+                        child: _isLoading ?
+                        SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          )
+                        )
+                        :
+                        const Text(
                           'Salvar',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
