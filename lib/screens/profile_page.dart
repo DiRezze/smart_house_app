@@ -134,6 +134,32 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                       ],
                     ),
                   ),
+                  (displayName == null || displayName!.isEmpty)
+                      ? AnimatedOpacity(
+                      opacity: _nameOpacity,
+                      duration: const Duration(milliseconds: 200),
+                      child: Column(
+                    children: [
+                      const SizedBox(height: 8),
+                      Card(
+                        color: AppColors.inputBackground,
+                        margin: EdgeInsets.all(0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            const ListTile(
+                              leading: Icon(Icons.error_outline_outlined, color: AppColors.primary,),
+                              title: Text('Seu perfil está incompleto', style: TextStyle(color: Colors.white),),
+                              subtitle: Text('Edite-o agora mesmo', style: TextStyle(color: AppColors.gray),),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                    ],
+                  )
+                  )
+                      : const SizedBox.shrink(),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton.icon(
@@ -163,7 +189,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                       ),
                     ),
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: 8,),
                   Divider(
                     color: AppColors.gray,
                     height: 1,
