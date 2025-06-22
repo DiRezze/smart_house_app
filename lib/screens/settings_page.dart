@@ -51,7 +51,7 @@ class SettingsPage extends StatelessWidget {
                     title: "Depuração",
                     description: "Funcionalidades experimentais",
                     onPressed: (){
-                      Navigator.of(context).pushNamed("/edit-profile");
+                      Navigator.of(context).pushNamed("/debug");
                     },
                     color: AppColors.errorOutline,
                     icon: Icon(Icons.developer_mode_rounded, color: Colors.white, size: 42),
