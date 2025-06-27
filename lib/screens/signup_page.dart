@@ -33,6 +33,7 @@ class _SignupPageState extends State<SignupPage> {
           Navigator.pushReplacementNamed(context, '/app');
         }
       } catch (e) {
+        if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Erro ao cadastrar: ${e.toString()}')),
         );
