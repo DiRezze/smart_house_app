@@ -1,16 +1,14 @@
-# smart_house_app
+# Smart House App
 
-An app for smart house system
+<div align="center">
+  
+  [![Platform: Android](https://img.shields.io/badge/platform-Android-green.svg)](https://www.android.com/)
+  [![Platform: iOS](https://img.shields.io/badge/platform-iOS-blue.svg)](https://www.apple.com/ios/)
+  [![Built with Flutter](https://img.shields.io/badge/Built%20with-Flutter-02569B.svg)](https://flutter.dev/)
+  [![IDE: Android Studio](https://img.shields.io/badge/IDE-Android%20Studio-orange.svg)](https://developer.android.com/studio)
+  [![GitHub issues](https://img.shields.io/github/issues/DiRezze/smart_house_mcu.svg)](https://github.com/DiRezze/smart_house_mcu/issues)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## Getting Started
+</div>
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
