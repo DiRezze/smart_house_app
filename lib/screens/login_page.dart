@@ -32,6 +32,7 @@ class _LoginPageState extends State<LoginPage> {
         password: _password,
       );
       await MetaService().updateMeta();
+      if (!mounted) return;
       Navigator.pushReplacementNamed(context, '/app');
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
