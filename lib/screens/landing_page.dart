@@ -54,7 +54,7 @@ class LandingPage extends StatelessWidget{
                     mainAxisSize: MainAxisSize.min,
                     children: [
 
-                      Text("SafeNest",
+                      Text("AutomaTec",
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
