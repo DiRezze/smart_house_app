@@ -33,7 +33,7 @@ class SettingsPage extends StatelessWidget {
                       title: "Usuário",
                       description: "Prenferências e privacidade",
                       onPressed: (){
-                        Navigator.of(context).pushNamed("/edit-profile");
+                        Navigator.of(context).pushNamed("/user-settings");
                       },
                       icon: Icon(Icons.person_rounded, color: Colors.white, size: 42),
                       color: AppColors.analogPrimary,
@@ -42,7 +42,7 @@ class SettingsPage extends StatelessWidget {
                     title: "Sobre",
                     description: "Informações do software",
                     onPressed: (){
-                      Navigator.of(context).pushNamed("/edit-profile");
+                      Navigator.of(context).pushNamed("/about");
                     },
                     icon: Icon(Icons.info_rounded, color: Colors.white, size: 42),
                     color: AppColors.primary,

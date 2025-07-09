@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smart_house_app/services/meta_service.dart';
 import 'package:smart_house_app/services/prefs_service.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
 
@@ -85,8 +84,8 @@ class _UserHeaderState extends State<UserHeader> {
           IconButton(
             icon: const Icon(Icons.grid_view_rounded),
             color: Colors.white,
-            onPressed:  () async {
-              await MetaService().updateMeta();
+            onPressed: () {
+              Navigator.of(context).pushNamed('/devices');
             },
           ),
         ],

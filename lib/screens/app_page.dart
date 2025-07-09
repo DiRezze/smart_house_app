@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_house_app/screens/home_page.dart';
 import 'package:smart_house_app/screens/profile_page.dart';
-import 'package:smart_house_app/screens/settings_page.dart';
+import 'package:smart_house_app/screens/settings/settings_page.dart';
 import 'package:smart_house_app/widgets/layouts/main_layout.dart';
 
 class MainAppPage extends StatefulWidget {
