@@ -18,7 +18,7 @@ class SettingsLayout extends StatelessWidget {
       body: Stack(
         children: [
           SingleChildScrollView(
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.all(16),
             child: SafeArea(
               child: Center(
                 child: Column(
