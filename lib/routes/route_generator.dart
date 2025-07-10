@@ -3,11 +3,15 @@ import 'package:smart_house_app/routes/auth_verifier.dart';
 import 'package:smart_house_app/routes/require_auth.dart';
 import 'package:smart_house_app/routes/route_transitions.dart';
 import 'package:smart_house_app/screens/app_page.dart';
+import 'package:smart_house_app/screens/devices_page.dart';
+import 'package:smart_house_app/screens/settings/about_page.dart';
+import 'package:smart_house_app/screens/settings/debug_page.dart';
 import 'package:smart_house_app/screens/edit_profile_page.dart';
 
 // app pages
 import 'package:smart_house_app/screens/landing_page.dart';
 import 'package:smart_house_app/screens/login_page.dart';
+import 'package:smart_house_app/screens/settings/user_settings_page.dart';
 import 'package:smart_house_app/screens/signup_page.dart';
 import 'package:smart_house_app/screens/home_page.dart';
 import 'package:smart_house_app/services/auth_service.dart';
@@ -29,8 +33,16 @@ class RouteGenerator {
         return RouteTransitions.slideFromBottom(RequireAuth(child: HomePage()));
       case '/app':
         return RouteTransitions.slideFromBottom(RequireAuth(child: MainAppPage()));
+      case '/devices':
+        return RouteTransitions.slideFromBottom(RequireAuth(child: DevicePage()));
       case '/edit-profile':
         return RouteTransitions.slideFromBottom(RequireAuth(child: EditProfilePage()));
+      case '/about':
+        return RouteTransitions.slideFromBottom(RequireAuth(child: AboutPage()));
+      case '/user-settings':
+        return RouteTransitions.slideFromBottom(RequireAuth(child: UserSettingsPage()));
+      case '/debug':
+        return RouteTransitions.slideFromBottom(RequireAuth(child: DebugPage()));
       default:
         return MaterialPageRoute(builder: (_)=>LandingPage());
     }
