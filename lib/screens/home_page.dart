@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
+import 'package:smart_house_app/widgets/filter_section.dart';
 import 'package:smart_house_app/widgets/user_header.dart';
 
 class HomePage extends StatelessWidget {
@@ -35,6 +36,13 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(height: 8,),
+                FilterSection(
+                  filters: ["Tudo", "Iluminação", "Aquecimento", "Segurança"],
+                  onSelected: (index) {
+                    // TODO: atualizar lista de dispositivos
+                  },
+                )
               ],
             ),
           ),
