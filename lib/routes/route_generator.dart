@@ -3,6 +3,7 @@ import 'package:smart_house_app/routes/auth_verifier.dart';
 import 'package:smart_house_app/routes/require_auth.dart';
 import 'package:smart_house_app/routes/route_transitions.dart';
 import 'package:smart_house_app/screens/app_page.dart';
+import 'package:smart_house_app/screens/broker_settings_page.dart';
 import 'package:smart_house_app/screens/devices/add_device_page.dart';
 import 'package:smart_house_app/screens/devices/devices_page.dart';
 import 'package:smart_house_app/screens/settings/about_page.dart';
@@ -40,6 +41,8 @@ class RouteGenerator {
         return RouteTransitions.fade(RequireAuth(child: AddDevicePage()));
       case '/edit-profile':
         return RouteTransitions.slideFromBottom(RequireAuth(child: EditProfilePage()));
+      case '/edit-broker':
+        return RouteTransitions.slideFromBottom(RequireAuth(child: BrokerSettingsPage()));
       case '/about':
         return RouteTransitions.slideFromBottom(RequireAuth(child: AboutPage()));
       case '/user-settings':

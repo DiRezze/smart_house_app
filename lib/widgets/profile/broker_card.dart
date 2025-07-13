@@ -110,7 +110,10 @@ class _BrokerCardState extends State<BrokerCard> {
                 ProfileButton(
                     extend: false,
                     label: _isOnline ? "Configurar" : "Sem conexão",
-                    icon: Icon(Icons.settings_rounded, color: Colors.white,)
+                    icon: Icon(Icons.settings_rounded, color: Colors.white,),
+                    onClick: () {
+                      Navigator.of(context).pushNamed("/edit-broker");
+                    }
                 ),
               ],
             ),

@@ -6,13 +6,15 @@ class ProfileButton extends StatelessWidget {
   final Icon? icon;
   final VoidCallback? onClick;
   final bool? extend;
+  final Color? tint;
 
   const ProfileButton({
     super.key,
     this.label,
     this.icon,
     this.onClick,
-    this.extend = true
+    this.extend = true,
+    this.tint
   });
 
   @override
@@ -47,6 +49,7 @@ class ProfileButton extends StatelessWidget {
         onPressed: onClick,
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
+          surfaceTintColor: tint,
           side: BorderSide(
             color: AppColors.gray,
             width: 1,
