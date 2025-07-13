@@ -40,6 +40,7 @@ class _FilterSectionState extends State<FilterSection> {
             ],
           ),
         ),
+        SizedBox(height: 4),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(

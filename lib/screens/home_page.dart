@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
+import 'package:smart_house_app/widgets/device_home_card.dart';
 import 'package:smart_house_app/widgets/filter_section.dart';
 import 'package:smart_house_app/widgets/user_header.dart';
 
@@ -36,12 +37,26 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 8,),
+                SizedBox(height: 16),
                 FilterSection(
                   filters: ["Tudo", "Iluminação", "Aquecimento", "Segurança"],
                   onSelected: (index) {
                     // TODO: atualizar lista de dispositivos
                   },
+                ),
+                SizedBox(height: 16),
+                GridView.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  children: [
+                    DeviceHomeCard(deviceName: "Luz 1", icon: Icons.lightbulb),
+                    DeviceHomeCard(deviceName: "Luz 2", icon: Icons.lightbulb),
+                    DeviceHomeCard(deviceName: "Luz 3", icon: Icons.lightbulb),
+                    DeviceHomeCard(deviceName: "Sensor gás", icon: Icons.sensors),
+                  ],
                 )
               ],
             ),
