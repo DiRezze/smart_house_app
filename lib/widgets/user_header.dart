@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_house_app/services/prefs_service.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
@@ -42,7 +43,7 @@ class _UserHeaderState extends State<UserHeader> {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
       child: Row(
         children: [
-          const Icon(Icons.house_rounded, color: Colors.white),
+          const Icon(CupertinoIcons.house_fill, color: Colors.white),
           const SizedBox(width: 8),
           AnimatedOpacity(
             duration: const Duration(milliseconds: 100),
