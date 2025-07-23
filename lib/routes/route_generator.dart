@@ -38,7 +38,7 @@ class RouteGenerator {
       case '/devices':
         return RouteTransitions.slideFromBottom(RequireAuth(child: DevicePage()));
       case '/add-device':
-        return RouteTransitions.fade(RequireAuth(child: AddDevicePage()));
+        return RouteTransitions.slideFromRight(RequireAuth(child: AddDevicePage()));
       case '/edit-profile':
         return RouteTransitions.slideFromBottom(RequireAuth(child: EditProfilePage()));
       case '/edit-broker':

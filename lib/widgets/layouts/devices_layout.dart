@@ -5,6 +5,7 @@ class DevicesLayout extends StatelessWidget {
   final bool showBackButton;
   final Widget childWidget;
   final FloatingActionButton? floatingActionButton;
+  final Widget? bottomSheet;
 
   const DevicesLayout({
     super.key,
@@ -12,11 +13,13 @@ class DevicesLayout extends StatelessWidget {
     this.floatingActionButton,
     this.showBackButton = false,
     required this.childWidget,
+    this.bottomSheet
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomSheet: bottomSheet,
       body: Stack(
         children: [
           SingleChildScrollView(
