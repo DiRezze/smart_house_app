@@ -19,6 +19,9 @@ class AddDevicePage extends StatefulWidget {
 }
 
 class _AddDevicePageState extends State<AddDevicePage> {
+
+  bool _isLoading = false;
+
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _topicController = TextEditingController();
@@ -34,6 +37,10 @@ class _AddDevicePageState extends State<AddDevicePage> {
 
   void _submit() async {
     try{
+      setState(() {
+        _isLoading = true;
+      });
+
       final uid = AuthService().currentUser?.uid;
       if (_formKey.currentState?.validate() ?? false) {
 
@@ -66,12 +73,17 @@ class _AddDevicePageState extends State<AddDevicePage> {
 
         if (!mounted) return;
         Navigator.of(context).pop();
-      } else {
-        throw ("Formulário inválido");
+
+        AppSnackBar.showSuccess(context, "Dispositivo adicionado!");
       }
     }
     catch (e) {
       AppSnackBar.showError(context, e.toString());
+    }
+    finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -128,28 +140,40 @@ class _AddDevicePageState extends State<AddDevicePage> {
         backgroundColor: AppColors.inputBackground,
         onClosing: () {},
         builder: (context) {
-          return SafeArea(child: Padding(padding: EdgeInsets.fromLTRB(16, 16, 16, 20),
-            child:  Row(
-              children: [
-                Expanded(
-                  child: DeviceButtonInput(
-                    primary: false,
-                    text: "Cancelar",
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
+          return SafeArea(
+            child: _isLoading ?
+            Padding(
+                padding: EdgeInsets.fromLTRB(16, 16, 16, 20),
+                child: LinearProgressIndicator(
+                  backgroundColor: AppColors.gray,
+                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+                )
+            )
+                :
+            Padding(
+              padding: EdgeInsets.fromLTRB(16, 16, 16, 20),
+              child:  Row(
+                children: [
+                  Expanded(
+                    child: DeviceButtonInput(
+                      primary: false,
+                      text: "Cancelar",
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
                   ),
-                ),
-                SizedBox(width: 8),
-                Expanded(
-                  child: DeviceButtonInput(
-                    primary: true,
-                    text: "Salvar",
-                    onPressed: _submit,
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: DeviceButtonInput(
+                      primary: true,
+                      text: "Salvar",
+                      onPressed: _submit,
+                    ),
                   ),
-                ),
-              ],
-            ),),
+                ],
+              ),
+            ),
           );
         },
       )
