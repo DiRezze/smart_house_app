@@ -105,7 +105,7 @@ class _AddDevicePageState extends State<AddDevicePage> {
                 controller: _nameController,
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Informe o tópico';
+                    return 'Informe o nome';
                   }
                   return null;
                 },

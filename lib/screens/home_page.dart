@@ -55,7 +55,9 @@ class HomePage extends StatelessWidget {
                     DeviceHomeCard(deviceName: "Luz 1", icon: Icons.lightbulb),
                     DeviceHomeCard(deviceName: "Luz 2", icon: Icons.lightbulb),
                     DeviceHomeCard(deviceName: "Luz 3", icon: Icons.lightbulb),
-                    DeviceHomeCard(deviceName: "Sensor gás", icon: Icons.sensors),
+                    DeviceHomeCard(deviceName: "Sensor gás 1", icon: Icons.sensors),
+                    DeviceHomeCard(deviceName: "Sensor gás 2", icon: Icons.sensors),
+                    DeviceHomeCard(deviceName: "Sensor gás 3", icon: Icons.sensors),
                   ],
                 )
               ],

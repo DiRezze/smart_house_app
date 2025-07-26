@@ -24,13 +24,13 @@ class MainAppLayout extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border(
               top: BorderSide(
-                color: Colors.grey.shade800,
+                color: AppColors.outline,
                 width: 1,
               ),
             ),
           ),
           child: BottomNavigationBar(
-            backgroundColor: AppColors.navBackground,
+            backgroundColor: AppColors.inputBackground,
             selectedItemColor: AppColors.primary,
             unselectedItemColor: AppColors.gray,
             type: BottomNavigationBarType.fixed,
