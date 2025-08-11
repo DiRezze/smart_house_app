@@ -30,12 +30,14 @@ class Device {
 
   factory Device.fromMap(Map<String, dynamic> map) {
     return Device(
-      id: map['id'] as String,
-      name: map['name'] as String,
-      icon: map['icon'] as int,
-      topic: map['topic'] as String,
-      lastUpdate: DateTime.parse(map['lastUpdate'] as String),
-      state: map['state'] as int,
+      id: map['id']?.toString() ?? '',
+      name: map['name']?.toString() ?? '',
+      icon: map['icon'] is int ? map['icon'] as int : int.tryParse(map['icon']?.toString() ?? '0') ?? 0,
+      topic: map['topic']?.toString() ?? '',
+      lastUpdate: map['lastUpdate'] != null
+          ? DateTime.tryParse(map['lastUpdate'].toString()) ?? DateTime.now()
+          : DateTime.now(),
+      state: map['state'] is int ? map['state'] as int : int.tryParse(map['state']?.toString() ?? '0') ?? 0,
     );
   }
 

@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:smart_house_app/models/device_model.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
 
 class DeviceHomeCard extends StatefulWidget {
-  final String deviceName;
-  final IconData icon;
-  final bool initialState;
+  final Device device;
   final ValueChanged<bool>? onChanged;
 
   const DeviceHomeCard({
     super.key,
-    required this.deviceName,
-    required this.icon,
-    this.initialState = false,
+    required this.device,
     this.onChanged,
   });
 
@@ -25,7 +22,7 @@ class _DeviceHomeCardState extends State<DeviceHomeCard> {
   @override
   void initState() {
     super.initState();
-    isOn = widget.initialState;
+    isOn = widget.device.state is bool ? widget.device.state as bool : false;
   }
 
   void _toggleSwitch(bool value) {
@@ -49,7 +46,7 @@ class _DeviceHomeCardState extends State<DeviceHomeCard> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              widget.deviceName,
+              widget.device.name,
               style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -57,7 +54,7 @@ class _DeviceHomeCardState extends State<DeviceHomeCard> {
               ),
             ),
             const SizedBox(height: 8),
-            Icon(widget.icon, size: 48, color: isOn ? Colors.blue : Colors.grey),
+            Icon(widget.device.iconData, size: 48, color: isOn ? Colors.blue : Colors.grey),
             const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

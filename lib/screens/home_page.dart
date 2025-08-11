@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smart_house_app/models/device_model.dart';
+import 'package:smart_house_app/services/device_service.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
 import 'package:smart_house_app/widgets/device_home_card.dart';
 import 'package:smart_house_app/widgets/filter_section.dart';
@@ -51,14 +53,9 @@ class HomePage extends StatelessWidget {
                   crossAxisSpacing: 8,
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  children: [
-                    DeviceHomeCard(deviceName: "Luz 1", icon: Icons.lightbulb),
-                    DeviceHomeCard(deviceName: "Luz 2", icon: Icons.lightbulb),
-                    DeviceHomeCard(deviceName: "Luz 3", icon: Icons.lightbulb),
-                    DeviceHomeCard(deviceName: "Sensor gás 1", icon: Icons.sensors),
-                    DeviceHomeCard(deviceName: "Sensor gás 2", icon: Icons.sensors),
-                    DeviceHomeCard(deviceName: "Sensor gás 3", icon: Icons.sensors),
-                  ],
+                  children: DeviceCache().devices
+                      .map((device) => DeviceHomeCard(device: device))
+                      .toList(),
                 )
               ],
             ),
