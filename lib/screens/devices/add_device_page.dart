@@ -1,8 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_house_app/models/device_model.dart';
 import 'package:smart_house_app/services/auth_service.dart';
-import 'package:smart_house_app/services/prefs_service.dart';
+import 'package:smart_house_app/services/device_service.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
 import 'package:smart_house_app/widgets/devices/device_button_input.dart';
 import 'package:smart_house_app/widgets/devices/device_icon_input.dart';
@@ -60,16 +59,9 @@ class _AddDevicePageState extends State<AddDevicePage> {
 
         await ref.set(data);
 
-        final device = Device(
-          id: ref.key!,
-          name: _nameController.text.trim(),
-          icon: _selectedIcon,
-          topic: _topicController.text.trim(),
-          state: _state,
-          lastUpdate: DateTime.now(),
-        );
-
-        PrefsService().setString("new", device.toString());
+        final devices = await DeviceService().fetchDevices();
+        
+        DeviceCache().updateDevices(devices);
 
         if (!mounted) return;
         Navigator.of(context).pop();

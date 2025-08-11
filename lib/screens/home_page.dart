@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smart_house_app/models/device_model.dart';
 import 'package:smart_house_app/services/device_service.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
 import 'package:smart_house_app/widgets/device_home_card.dart';

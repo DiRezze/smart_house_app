@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
 
 class AppSnackBar {
+  AppSnackBar(String string);
+
   static void showError(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(

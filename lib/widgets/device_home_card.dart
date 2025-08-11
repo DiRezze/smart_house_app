@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:smart_house_app/models/device_model.dart';
+import 'package:smart_house_app/services/mqtt_service.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
+import 'package:smart_house_app/widgets/popups/snack_bar.dart';
 
 class DeviceHomeCard extends StatefulWidget {
   final Device device;
   final ValueChanged<bool>? onChanged;
-
   const DeviceHomeCard({
     super.key,
     required this.device,
@@ -18,19 +19,32 @@ class DeviceHomeCard extends StatefulWidget {
 
 class _DeviceHomeCardState extends State<DeviceHomeCard> {
   late bool isOn;
+  final mqtt = MqttService();
 
   @override
   void initState() {
     super.initState();
+
     isOn = widget.device.state is bool ? widget.device.state as bool : false;
   }
 
-  void _toggleSwitch(bool value) {
-    setState(() {
-      isOn = value;
-    });
-    if (widget.onChanged != null) {
-      widget.onChanged!(value);
+  Future<void> _toggleSwitch(bool value) async {
+    try {
+      int action = isOn ? 0 : 1;
+      mqtt.connect(
+        username: '---',
+        password: '---',
+        url: '---',
+      );
+      mqtt.publish(widget.device, action);
+      setState(() {
+        isOn = value;
+      });
+      if (widget.onChanged != null) {
+        widget.onChanged!(value);
+      }
+    } catch (e) {
+      AppSnackBar.showError(context, e.toString());
     }
   }
 
