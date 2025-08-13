@@ -21,7 +21,7 @@ class SettingsPage extends StatelessWidget {
             onPressed: (){
               Navigator.of(context).pushNamed("/user-settings");
             },
-            icon: Icon(Icons.person_rounded, color: Colors.white, size: 42),
+            icon: Icon(Icons.person_rounded, color: Colors.white, size: 32),
             color: AppColors.analogPrimary,
           ),
           BigIconButton(
@@ -30,7 +30,7 @@ class SettingsPage extends StatelessWidget {
             onPressed: (){
               Navigator.of(context).pushNamed("/about");
             },
-            icon: Icon(Icons.info_rounded, color: Colors.white, size: 42),
+            icon: Icon(Icons.info_rounded, color: Colors.white, size: 32),
             color: AppColors.primary,
           ),
           BigIconButton(
@@ -40,7 +40,7 @@ class SettingsPage extends StatelessWidget {
               Navigator.of(context).pushNamed("/debug");
             },
             color: AppColors.errorOutline,
-            icon: Icon(Icons.developer_mode_rounded, color: Colors.white, size: 42),
+            icon: Icon(Icons.developer_mode_rounded, color: Colors.white, size: 32),
           ),
           BigIconButton(
             title: "Logout",
@@ -50,7 +50,7 @@ class SettingsPage extends StatelessWidget {
               PrefsService().remove('displayName');
             },
             color: AppColors.outline,
-            icon: Icon(Icons.logout_rounded, color: Colors.white, size: 42),
+            icon: Icon(Icons.logout_rounded, color: Colors.white, size: 32),
           ),
         ],
       ),

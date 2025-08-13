@@ -53,8 +53,8 @@ class BigIconButton extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Container(
-          width: 64,
-          height: 64,
+          width: 48,
+          height: 48,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: color

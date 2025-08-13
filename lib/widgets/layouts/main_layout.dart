@@ -24,13 +24,13 @@ class MainAppLayout extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border(
               top: BorderSide(
-                color: Colors.grey.shade800,
+                color: AppColors.outline,
                 width: 1,
               ),
             ),
           ),
           child: BottomNavigationBar(
-            backgroundColor: AppColors.navBackground,
+            backgroundColor: AppColors.inputBackground,
             selectedItemColor: AppColors.primary,
             unselectedItemColor: AppColors.gray,
             type: BottomNavigationBarType.fixed,
@@ -41,8 +41,8 @@ class MainAppLayout extends StatelessWidget {
             currentIndex: currentIndex,
             onTap: onTabSelected,
             items: const [
-              BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), label: 'Início'),
-              BottomNavigationBarItem(icon: Icon(CupertinoIcons.person), label: 'Perfil'),
+              BottomNavigationBarItem(icon: Icon(CupertinoIcons.house_fill), label: 'Início'),
+              BottomNavigationBarItem(icon: Icon(CupertinoIcons.person_fill), label: 'Perfil'),
               BottomNavigationBarItem(icon: Icon(Icons.settings_rounded), label: 'Configurações'),
             ],
           ),

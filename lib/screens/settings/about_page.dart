@@ -20,7 +20,7 @@ class AboutPage extends StatelessWidget {
             BigIconButton(
               title: "Código-fonte",
               description: "Repositório com o código aberto do projeto",
-              icon: Icon(Icons.code_rounded, color: Colors.white, size: 42),
+              icon: Icon(Icons.code_rounded, color: Colors.white, size: 32),
               color: AppColors.navBackground,
               onPressed: () async {
                 final url = Uri.parse(AppInfo.srcCode);

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smart_house_app/services/prefs_service.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
+import 'package:smart_house_app/widgets/profile/broker_card.dart';
+import 'package:smart_house_app/widgets/profile/profile_button.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -21,7 +23,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 250),
+      duration: const Duration(milliseconds: 500),
       vsync: this,
     );
 
@@ -117,25 +119,9 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                       ),
                     ],
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        SizedBox(width: 8,),
-                        Icon(Icons.pin_drop_rounded, color: Colors.white, size: 18),
-                        Text(
-                          "Garça, São Paulo | BRASIL",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+
                   (displayName != null && displayName!.isNotEmpty)
-                      ? const SizedBox.shrink()
+                      ? const SizedBox(height: 8)
                       : AnimatedOpacity(
                     opacity: _nameOpacity,
                     duration: const Duration(milliseconds: 200),
@@ -160,34 +146,14 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                       ],
                     ),
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      icon: Icon(
-                        Icons.edit,
-                        color: AppColors.gray,
-                        size: 18,
-                      ),
-                      onPressed: () => Navigator.of(context).pushNamed("/edit-profile"),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        side: BorderSide(
-                          color: AppColors.gray,
-                          width: 1,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(32),
-                        ),
-                      ),
-                      label: const Text(
-                        'Editar perfil',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: Colors.white,
-                        ),
-                      ),
+                  ProfileButton(
+                    icon: Icon(
+                      Icons.edit,
+                      color: Colors.white,
+                      size: 18,
                     ),
+                    label: "Editar perfil",
+                    onClick: () => Navigator.of(context).pushNamed("/edit-profile"),
                   ),
                   SizedBox(height: 8,),
                   Divider(
@@ -200,44 +166,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                     opacity: _fadeAnimation,
                     child: SlideTransition(
                       position: _slideAnimation,
-                      child: Container(
-                        width: double.infinity,
-                        constraints: BoxConstraints(
-                          minHeight: 320,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.background,
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            width: 1,
-                            color: AppColors.gray.withAlpha(77),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.navBackground.withAlpha(77),
-                              blurRadius: 8,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        alignment: Alignment.topCenter,
-                        child: Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Column(
-                            children: [
-                              Text(
-                                'Visão geral',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      child: BrokerCard()
                     ),
                   ),
                 ],

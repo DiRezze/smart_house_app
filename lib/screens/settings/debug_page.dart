@@ -56,7 +56,7 @@ class DebugPage extends StatelessWidget {
             BigIconButton(
               title: "Metadados",
               description: "Fetch dos metadados do Realtime DB",
-              icon: Icon(Icons.data_object_rounded, color: Colors.white, size: 42),
+              icon: Icon(Icons.data_object_rounded, color: Colors.white, size: 32),
               color: AppColors.gray,
               onPressed: (){
                 MetaService().updateMeta();
@@ -65,7 +65,7 @@ class DebugPage extends StatelessWidget {
             BigIconButton(
               title: "Shared Prefs",
               description: "Limpeza das preferências de usuário",
-              icon: Icon(Icons.restore_from_trash_rounded, color: Colors.white, size: 42),
+              icon: Icon(Icons.restore_from_trash_rounded, color: Colors.white, size: 32),
               color: AppColors.gray,
               onPressed: (){
                 PrefsService().clear();
