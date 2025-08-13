@@ -11,10 +11,10 @@ import 'package:smart_house_app/screens/settings/debug_page.dart';
 import 'package:smart_house_app/screens/edit_profile_page.dart';
 
 // app pages
-import 'package:smart_house_app/screens/landing_page.dart';
-import 'package:smart_house_app/screens/login_page.dart';
+import 'package:smart_house_app/screens/auth/landing_page.dart';
+import 'package:smart_house_app/screens/auth/login_page.dart';
 import 'package:smart_house_app/screens/settings/user_settings_page.dart';
-import 'package:smart_house_app/screens/signup_page.dart';
+import 'package:smart_house_app/screens/auth/signup_page.dart';
 import 'package:smart_house_app/screens/home_page.dart';
 import 'package:smart_house_app/services/auth_service.dart';
 

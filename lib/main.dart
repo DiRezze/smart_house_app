@@ -15,6 +15,11 @@ Future<void> main() async {
     statusBarIconBrightness: Brightness.light,
   ));
 
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
   await dotenv.load(fileName: ".env");
 
   await Firebase.initializeApp(
