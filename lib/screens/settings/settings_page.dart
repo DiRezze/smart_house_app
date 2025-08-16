@@ -4,6 +4,7 @@ import 'package:smart_house_app/services/prefs_service.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
 import 'package:smart_house_app/widgets/big_icon_button.dart';
 import 'package:smart_house_app/widgets/layouts/settings_layout.dart';
+import 'package:smart_house_app/widgets/text_divider.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -34,6 +35,17 @@ class SettingsPage extends StatelessWidget {
             color: AppColors.primary,
           ),
           BigIconButton(
+            title: "Logout",
+            description: "Encerrar a sessão atual",
+            onPressed: (){
+              AuthService().signOut(context);
+              PrefsService().remove('displayName');
+            },
+            color: AppColors.outline,
+            icon: Icon(Icons.logout_rounded, color: Colors.white, size: 32),
+          ),
+          TextDivider(text: "Experimental"),
+          BigIconButton(
             title: "Depuração",
             description: "Funcionalidades experimentais",
             onPressed: (){
@@ -41,16 +53,6 @@ class SettingsPage extends StatelessWidget {
             },
             color: AppColors.errorOutline,
             icon: Icon(Icons.developer_mode_rounded, color: Colors.white, size: 32),
-          ),
-          BigIconButton(
-            title: "Logout",
-            description: "Encerrar a sessão atual",
-            onPressed: (){
-              AuthService().signOut();
-              PrefsService().remove('displayName');
-            },
-            color: AppColors.outline,
-            icon: Icon(Icons.logout_rounded, color: Colors.white, size: 32),
           ),
         ],
       ),

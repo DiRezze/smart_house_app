@@ -29,7 +29,7 @@ class _RequireAuthState extends State<RequireAuth> {
           if (!_redirected) {
             _redirected = true;
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              Navigator.of(context).pushReplacementNamed('/login');
+              Navigator.of(context).pushReplacementNamed('/');
             });
           }
           return const Scaffold();

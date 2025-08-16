@@ -15,44 +15,6 @@ class DebugPage extends StatelessWidget {
         childWidget: Column(
           spacing: 8,
           children: [
-            Container(
-              width: double.infinity,
-              constraints: BoxConstraints(
-                minHeight: 320,
-              ),
-              decoration: BoxDecoration(
-                color: AppColors.background,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  width: 1,
-                  color: AppColors.gray.withAlpha(77),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.navBackground.withAlpha(77),
-                    blurRadius: 8,
-                    offset: Offset(0, 4),
-                  ),
-                ],
-              ),
-              alignment: Alignment.topCenter,
-              child: Padding(
-                padding: EdgeInsets.all(8),
-                child: Column(
-                  children: [
-                    Text(
-                      'Protocolo MQTT',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ),
-            ),
             BigIconButton(
               title: "Metadados",
               description: "Fetch dos metadados do Realtime DB",
