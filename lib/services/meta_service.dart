@@ -9,7 +9,11 @@ class MetaService {
   factory MetaService() => _instance;
   MetaService._internal();
 
+  static String? _cachedName;
+
   final db = FirebaseDatabase.instance;
+
+  final prefs = PrefsService();
 
   Future<void> updateMeta() async {
     try {
@@ -17,16 +21,37 @@ class MetaService {
       final snapshot = await ref.get();
       if (snapshot.exists) {
         final data = Map<String, dynamic>.from(snapshot.value as Map<dynamic, dynamic>);
-        if (data['displayName'] != null && data['displayName'].toString().isNotEmpty) {
-          await PrefsService().setString('displayName', data['displayName']);
+        final name = data['displayName'];
+        if (name != null && name.toString().isNotEmpty) {
+          await PrefsService().setString('displayName', name);
+          _cachedName = name;
         }
-
       }
     }
     catch (e) {
       // pass
     }
 
+  }
+
+  Future<String?> getDisplayName() async {
+    if (_cachedName != null) {
+      return _cachedName;
+    }
+    try {
+      final name = await prefs.getString('displayName');
+      if (name != null && name.isNotEmpty) {
+        _cachedName = name;
+        return name;
+      }
+    } catch (_) {
+      return null;
+    }
+    return "usuário";
+  }
+
+  Future<void> flushMeta() async {
+    await PrefsService().clear();
   }
 
 }
