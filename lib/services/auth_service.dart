@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_house_app/services/device_service.dart';
 import 'package:smart_house_app/services/meta_service.dart';
 
 class AuthService {
@@ -21,6 +22,7 @@ class AuthService {
 
     await MetaService().updateMeta();
 
+    await DeviceService().updateDevices();
 
   }
 
