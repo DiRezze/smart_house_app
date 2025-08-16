@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:smart_house_app/models/device_model.dart';
 import 'package:smart_house_app/services/device_service.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
 import 'package:smart_house_app/widgets/device_home_card.dart';
 import 'package:smart_house_app/widgets/filter_section.dart';
 import 'package:smart_house_app/widgets/user_header.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+  List<Device> _deviceList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadDevices();
+  }
+
+  void _loadDevices() async {
+    final d = DeviceCache().devices;
+    if(d.isNotEmpty){
+      setState(() {
+        _deviceList = d;
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +77,7 @@ class HomePage extends StatelessWidget {
                   crossAxisSpacing: 8,
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  children: DeviceCache().devices
+                  children: _deviceList
                       .map((device) => DeviceHomeCard(device: device))
                       .toList(),
                 )

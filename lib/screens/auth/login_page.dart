@@ -1,16 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:smart_house_app/models/broker_model.dart';
-import 'package:smart_house_app/models/device_model.dart';
 import 'package:smart_house_app/services/auth_service.dart';
-import 'package:smart_house_app/services/device_service.dart';
-import 'package:smart_house_app/services/meta_service.dart';
-import 'package:smart_house_app/services/mqtt_service.dart';
-import 'package:smart_house_app/services/prefs_service.dart';
 import 'package:smart_house_app/widgets/auth_input.dart';
 import 'package:smart_house_app/widgets/landing_button.dart';
 import 'package:smart_house_app/widgets/layouts/auth_layout.dart';
+import 'package:smart_house_app/widgets/popups/snack_bar.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -34,18 +27,17 @@ class _LoginPageState extends State<LoginPage> {
     _formKey.currentState!.save();
 
     try {
-      await _auth.signInWithEmailAndPassWord(
-        email: _email,
-        password: _password,
+      _auth.login(
+          email: _email,
+          password: _password,
+          context: context
       );
-
-      await MetaService().updateMeta();
-
       if (!mounted) return;
       Navigator.pushReplacementNamed(context, '/app');
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Erro ao fazer login: ${e.toString()}")),
+      AppSnackBar.showError(
+          context,
+          "Erro ao fazer login: ${e.toString()}"
       );
     } finally {
       setState(() => _isLoading = false);

@@ -3,6 +3,7 @@ import 'package:smart_house_app/widgets/auth_input.dart';
 import 'package:smart_house_app/widgets/landing_button.dart';
 import 'package:smart_house_app/widgets/layouts/auth_layout.dart';
 import 'package:smart_house_app/services/auth_service.dart';
+import 'package:smart_house_app/widgets/popups/snack_bar.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -15,6 +16,7 @@ class _SignupPageState extends State<SignupPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _repassController = TextEditingController();
   final _auth = AuthService();
 
   bool _isLoading = false;
@@ -24,19 +26,17 @@ class _SignupPageState extends State<SignupPage> {
       setState(() => _isLoading = true);
 
       try {
-        await _auth.createUserWithEmailAndPassword(
-          email: _emailController.text.trim(),
-          password: _passwordController.text.trim(),
+        await _auth.register(
+          email: _emailController.text,
+          password: _passwordController.text,
+          context: context
         );
 
-        if (mounted) {
-          Navigator.pushReplacementNamed(context, '/app');
-        }
+        if (mounted) Navigator.pushReplacementNamed(context, '/app');
+
       } catch (e) {
         if (!mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erro ao cadastrar: ${e.toString()}')),
-        );
+        AppSnackBar.showError(context, e.toString());
       } finally {
         if (mounted) setState(() => _isLoading = false);
       }
@@ -67,6 +67,15 @@ class _SignupPageState extends State<SignupPage> {
               obscureText: true,
               controller: _passwordController,
               validator: (value) => value != null && value.length >= 6 ? null : 'Mínimo 6 caracteres',
+            ),
+            const SizedBox(height: 24),
+            AuthInputField(
+              labelText: "Repita a senha",
+              prefixIcon: Icons.lock_outline,
+              keyboardType: TextInputType.visiblePassword,
+              obscureText: true,
+              controller: _repassController,
+              validator: (value) => value == _passwordController.text ? null : 'Senhas não coincidem',
             ),
             const SizedBox(height: 24),
             _isLoading

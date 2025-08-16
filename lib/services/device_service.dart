@@ -29,8 +29,12 @@ class DeviceService {
   }
 
   Future<void> updateDevices() async {
-    List<Device> devices = await fetchDevices();
+    final devices = await fetchDevices();
+
+    DeviceCache().updateDevices(devices);
+
     String devicesJson = jsonEncode(devices.map((d) => d.toMap()).toList());
+
     await PrefsService().setString("devices", devicesJson);
   }
 

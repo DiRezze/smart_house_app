@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_house_app/services/prefs_service.dart';
+import 'package:smart_house_app/services/meta_service.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
 
 class UserHeader extends StatefulWidget {
@@ -20,7 +20,7 @@ class UserHeader extends StatefulWidget {
 }
 
 class _UserHeaderState extends State<UserHeader> {
-  String? displayName;
+  String? displayName = "";
   double _nameOpacity = 0.0;
 
   @override
@@ -30,9 +30,9 @@ class _UserHeaderState extends State<UserHeader> {
   }
 
   Future<void> _loadDisplayName() async {
-    final name = await PrefsService().getString('displayName');
+    final name = await MetaService().getDisplayName();
     setState(() {
-      displayName = name ?? 'usuário';
+      displayName = name;
       _nameOpacity = 1.0;
     });
   }
