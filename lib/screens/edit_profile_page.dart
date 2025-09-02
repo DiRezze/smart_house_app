@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_house_app/services/meta_service.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
 import 'package:smart_house_app/widgets/app_input.dart';
+import 'package:smart_house_app/widgets/devices/device_button_input.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -31,7 +32,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     super.dispose();
   }
 
-  void _saveProfile() async {
+  void _submit() async {
     if (_formKey.currentState?.validate() ?? false) {
       setState(() => _isLoading = true);
       try {
@@ -95,6 +96,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final keyboardOpen = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -160,43 +162,53 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         return null;
                       },
                     ),
-                    const SizedBox(height: 32),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primary,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(32),
-                          ),
-                        ),
-                        onPressed: _saveProfile,
-                        child: _isLoading ?
-                        SizedBox(
-                          width: 24,
-                          height: 24,
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeWidth: 2,
-                          )
-                        )
-                        :
-                        const Text(
-                          'Salvar',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
             ),
           ),
         ),
+      ),
+      bottomSheet: keyboardOpen ? null : BottomSheet(
+        backgroundColor: AppColors.inputBackground,
+        onClosing: () {},
+        builder: (context) {
+          return SafeArea(
+            child: _isLoading ?
+            Padding(
+                padding: EdgeInsets.fromLTRB(16, 16, 16, 20),
+                child: LinearProgressIndicator(
+                  backgroundColor: AppColors.gray,
+                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+                )
+            )
+                :
+            Padding(
+              padding: EdgeInsets.fromLTRB(16, 16, 16, 20),
+              child:  Row(
+                children: [
+                  Expanded(
+                    child: DeviceButtonInput(
+                      primary: false,
+                      text: "Cancelar",
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: DeviceButtonInput(
+                      primary: true,
+                      text: "Salvar",
+                      onPressed: _submit,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

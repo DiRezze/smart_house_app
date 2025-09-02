@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:smart_house_app/routes/route_generator.dart';
 import 'package:flutter/services.dart';
+import 'package:smart_house_app/services/device_service.dart';
 import 'package:smart_house_app/services/firebase_options.dart';
+import 'package:smart_house_app/services/meta_service.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
 
 Future<void> main() async {
@@ -25,6 +27,9 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await MetaService().updateMeta();
+  await DeviceService().updateDevices();
 
   runApp(const MyApp());
 
