@@ -82,6 +82,7 @@ class BigIconButton extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Colors.white70,
           ),
+          textAlign: TextAlign.justify,
         ),
       ],
     );

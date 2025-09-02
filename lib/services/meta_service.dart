@@ -4,8 +4,8 @@ import 'package:firebase_database/firebase_database.dart';
 
 class MetaService {
   static final MetaService _instance = MetaService._internal();
-  final user = FirebaseAuth.instance.currentUser;
-  get uid => user?.uid;
+  User? get user => FirebaseAuth.instance.currentUser;
+  String? get uid => user?.uid;
   factory MetaService() => _instance;
   MetaService._internal();
 
@@ -17,6 +17,7 @@ class MetaService {
 
   Future<void> updateMeta() async {
     try {
+      if (uid == null) return;
       final ref = db.ref('users/$uid/meta');
       final snapshot = await ref.get();
       if (snapshot.exists) {
@@ -47,7 +48,7 @@ class MetaService {
     } catch (_) {
       return null;
     }
-    return "usuário";
+    return null;
   }
 
   Future<void> flushMeta() async {
