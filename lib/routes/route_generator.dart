@@ -3,12 +3,12 @@ import 'package:smart_house_app/routes/auth_verifier.dart';
 import 'package:smart_house_app/routes/require_auth.dart';
 import 'package:smart_house_app/routes/route_transitions.dart';
 import 'package:smart_house_app/screens/app_page.dart';
-import 'package:smart_house_app/screens/broker_settings_page.dart';
+import 'package:smart_house_app/screens/profile/broker_settings_page.dart';
 import 'package:smart_house_app/screens/devices/add_device_page.dart';
 import 'package:smart_house_app/screens/devices/devices_page.dart';
 import 'package:smart_house_app/screens/settings/about_page.dart';
 import 'package:smart_house_app/screens/settings/debug_page.dart';
-import 'package:smart_house_app/screens/edit_profile_page.dart';
+import 'package:smart_house_app/screens/profile/edit_profile_page.dart';
 
 // app pages
 import 'package:smart_house_app/screens/auth/landing_page.dart';
