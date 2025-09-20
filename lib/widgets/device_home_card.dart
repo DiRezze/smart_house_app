@@ -20,11 +20,11 @@ class DeviceHomeCard extends StatefulWidget {
 class _DeviceHomeCardState extends State<DeviceHomeCard> {
   late bool isOn;
   final mqtt = MqttService();
+  bool _isPressed = false;
 
   @override
   void initState() {
     super.initState();
-
     isOn = widget.device.state is bool ? widget.device.state as bool : false;
   }
 
@@ -50,46 +50,61 @@ class _DeviceHomeCardState extends State<DeviceHomeCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: AppColors.inputBackground,
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              widget.device.name,
-              style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.analogPrimary
-              ),
-            ),
-            const SizedBox(height: 8),
-            Icon(widget.device.iconData, size: 48, color: isOn ? Colors.blue : Colors.grey),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+    return GestureDetector(
+      onLongPress: () {
+        Navigator.of(context).pushNamed("/device-info", arguments: widget.device);
+      },
+      onTapDown: (_) => setState(() => _isPressed = true),
+      onTapUp: (_) => setState(() => _isPressed = false),
+      onTapCancel: () => setState(() => _isPressed = false),
+      child: AnimatedScale(
+        scale: _isPressed ? 0.94 : 1.0,
+        duration: const Duration(milliseconds: 150),
+        curve: Curves.easeOut,
+        child: Card(
+          color: _isPressed ? AppColors.inputFocusBackground : AppColors.inputBackground,
+          elevation: 2,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Text(isOn ? "Ligado" : "Desligado",
-                  style: TextStyle(
-                    color: isOn ? Colors.blue : Colors.grey,
-                    fontWeight: FontWeight.w500,
+                Text(
+                  widget.device.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.analogPrimary
                   ),
                 ),
-                const SizedBox(width: 8),
-                Switch(
-                  value: isOn,
-                  onChanged: _toggleSwitch,
-                  activeColor: Colors.blue,
-                  inactiveThumbColor: Colors.white,
-                  inactiveTrackColor: AppColors.outline,
+                const SizedBox(height: 8),
+                Icon(widget.device.iconData, size: 48, color: isOn ? Colors.blue : Colors.grey),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(isOn ? "Ligado" : "Desligado",
+                      style: TextStyle(
+                        color: isOn ? Colors.blue : Colors.grey,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Switch(
+                      value: isOn,
+                      onChanged: _toggleSwitch,
+                      activeColor: Colors.blue,
+                      inactiveThumbColor: Colors.white,
+                      inactiveTrackColor: AppColors.outline,
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );

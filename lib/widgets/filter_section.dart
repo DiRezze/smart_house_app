@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:smart_house_app/widgets/badge_button.dart';
 
 class FilterSection extends StatefulWidget {
@@ -43,25 +44,36 @@ class _FilterSectionState extends State<FilterSection> {
         SizedBox(height: 4),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: Row(
-            children: List.generate(widget.filters.length, (index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: BadgeButton(
-                  selected: selectedIndex == index,
-                  label: widget.filters[index],
-                  onClick: () {
-                    setState(() {
-                      selectedIndex = index;
-                    });
-                    if (widget.onSelected != null) {
-                      widget.onSelected!(index);
-                    }
-                  },
-                ),
-              );
-            }),
-          ),
+          child: AnimationLimiter(
+            child: Row(
+              children: List.generate(widget.filters.length, (index) {
+                return AnimationConfiguration.staggeredList(
+                  position: index,
+                  duration: const Duration(milliseconds: 250),
+                  child: SlideAnimation(
+                    horizontalOffset: 20.0,
+                    child: FadeInAnimation(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: BadgeButton(
+                          selected: selectedIndex == index,
+                          label: widget.filters[index],
+                          onClick: () {
+                            setState(() {
+                              selectedIndex = index;
+                            });
+                            if (widget.onSelected != null) {
+                              widget.onSelected!(index);
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }),
+            ),
+          )
         )
       ],
     );

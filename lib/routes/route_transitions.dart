@@ -41,4 +41,30 @@ class RouteTransitions {
       },
     );
   }
+
+  /// Zoom the page from center
+  static PageRouteBuilder zoomIn(Widget page) {
+    return PageRouteBuilder(
+      transitionDuration: const Duration(milliseconds: 200),
+      pageBuilder: (_, __, ___) => page,
+      transitionsBuilder: (_, animation, __, child) {
+        final curvedAnimation = CurvedAnimation(
+          parent: animation,
+          curve: Curves.easeInOut,
+        );
+        final scaleAnimation = Tween<double>(
+          begin: 0.9,
+          end: 1.0,
+        ).animate(curvedAnimation);
+        return FadeTransition(
+          opacity: curvedAnimation,
+          child: ScaleTransition(
+            scale: scaleAnimation,
+            child: child,
+          ),
+        );
+      },
+    );
+  }
+
 }

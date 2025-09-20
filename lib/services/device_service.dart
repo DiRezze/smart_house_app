@@ -22,9 +22,14 @@ class DeviceService {
 
     for (var child in snapshot.children) {
       final data = child.value as Map<dynamic, dynamic>;
-      devices.add(Device.fromMap(Map<String, dynamic>.from(data)));
-    }
+      final map = Map<String, dynamic>.from(data);
 
+      if (child.key == null || child.key!.isEmpty) continue;
+
+      map['id'] = child.key;
+
+      devices.add(Device.fromMap(map));
+    }
     return devices;
   }
 

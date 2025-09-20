@@ -1,7 +1,5 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_house_app/services/auth_service.dart';
-import 'package:smart_house_app/services/device_service.dart';
+import 'package:smart_house_app/models/device_model.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
 import 'package:smart_house_app/widgets/devices/device_button_input.dart';
 import 'package:smart_house_app/widgets/devices/device_icon_input.dart';
@@ -40,30 +38,21 @@ class _AddDevicePageState extends State<AddDevicePage> {
         _isLoading = true;
       });
 
-      final uid = AuthService().currentUser?.uid;
       if (_formKey.currentState?.validate() ?? false) {
 
-        if(uid == null) throw Exception("Sem usuário logado");
+        final d = Device(
+            id: '#',
+            name: _nameController.text.trim(),
+            icon: _selectedIcon,
+            topic: _topicController.text.trim(),
+            state: _state,
+            lastUpdate: DateTime.now(),
+        );
 
-        final db = FirebaseDatabase.instance;
-
-        final ref = db.ref("users/$uid/devices").push();
-
-        final data = {
-            'name': _nameController.text.trim(),
-            'icon': _selectedIcon,
-            'topic': _topicController.text.trim(),
-            'state': _state,
-            'lastUpdate': DateTime.now().toIso8601String(),
-        };
-
-        await ref.set(data);
-
-        final devices = await DeviceService().fetchDevices();
-        
-        DeviceCache().updateDevices(devices);
+        d.create();
 
         if (!mounted) return;
+
         Navigator.of(context).pop();
 
         AppSnackBar.showSuccess(context, "Dispositivo adicionado!");

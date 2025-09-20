@@ -14,14 +14,26 @@ class MainAppPage extends StatefulWidget {
 class _MainAppPageState extends State<MainAppPage> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = [
-    HomePage(),
-    ProfilePage(),
-    SettingsPage(),
-  ];
+  final GlobalKey<HomePageState> _homeKey = GlobalKey<HomePageState>();
+
+  late final List<Widget> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+    _pages = [
+      HomePage(key: _homeKey),
+      ProfilePage(),
+      SettingsPage(),
+    ];
+  }
 
   void _onTabSelected(int index) {
     setState(() => _currentIndex = index);
+
+    if (index == 0) {
+      _homeKey.currentState?.loadDevices();
+    }
   }
 
   @override
@@ -33,3 +45,4 @@ class _MainAppPageState extends State<MainAppPage> {
     );
   }
 }
+
