@@ -1,37 +1,67 @@
 import 'package:flutter/material.dart';
+import 'package:smart_house_app/main.dart';
 import 'package:smart_house_app/models/device_model.dart';
 import 'package:smart_house_app/services/device_service.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
 import 'package:smart_house_app/widgets/device_home_card.dart';
 import 'package:smart_house_app/widgets/filter_section.dart';
 import 'package:smart_house_app/widgets/user_header.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<StatefulWidget> createState() => _HomePageState();
+  State<StatefulWidget> createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> with WidgetsBindingObserver, RouteAware {
 
   List<Device> _deviceList = [];
 
   @override
   void initState() {
     super.initState();
-    _loadDevices();
+    WidgetsBinding.instance.addObserver(this);
+    loadDevices();
   }
 
-  void _loadDevices() async {
-    final d = DeviceCache().devices;
-    if(d.isNotEmpty){
-      setState(() {
-        _deviceList = d;
-      });
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final route = ModalRoute.of(context);
+    if (route != null) {
+      routeObserver.subscribe(this, route as PageRoute);
+    }
+  }
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    routeObserver.unsubscribe(this); // corrigido
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      loadDevices();
     }
   }
 
+  @override
+  void didPopNext() {
+    loadDevices();
+  }
+
+  void loadDevices() async {
+    await DeviceService().updateDevices();
+    final devices = DeviceCache().devices;
+    if (mounted) {
+      setState(() {
+        _deviceList = devices;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,16 +101,33 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
                 SizedBox(height: 16),
-                GridView.count(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 8,
-                  crossAxisSpacing: 8,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: _deviceList
-                      .map((device) => DeviceHomeCard(device: device))
-                      .toList(),
-                )
+                AnimationLimiter(
+                  child: GridView.count(
+                      key: UniqueKey(),
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 8,
+                    crossAxisSpacing: 8,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    children: List.generate(
+                      _deviceList.length,
+                          (int index) {
+                        final device = _deviceList[index];
+                        return AnimationConfiguration.staggeredGrid(
+                          position: index,
+                          duration: const Duration(milliseconds: 300),
+                          columnCount: 2,
+                          child: SlideAnimation(
+                            verticalOffset: 30.0,
+                            child: FadeInAnimation(
+                              child: DeviceHomeCard(device: device),
+                            ),
+                          ),
+                        );
+                      },
+                    )
+                  ),
+                ),
               ],
             ),
           ),

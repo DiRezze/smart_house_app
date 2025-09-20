@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:smart_house_app/models/device_model.dart';
 import 'package:smart_house_app/routes/auth_verifier.dart';
 import 'package:smart_house_app/routes/require_auth.dart';
 import 'package:smart_house_app/routes/route_transitions.dart';
 import 'package:smart_house_app/screens/app_page.dart';
+import 'package:smart_house_app/screens/devices/device_info_page.dart';
 import 'package:smart_house_app/screens/profile/broker_settings_page.dart';
 import 'package:smart_house_app/screens/devices/add_device_page.dart';
 import 'package:smart_house_app/screens/devices/devices_page.dart';
@@ -19,9 +21,9 @@ import 'package:smart_house_app/screens/home_page.dart';
 import 'package:smart_house_app/services/auth_service.dart';
 
 class RouteGenerator {
+
   static Route<dynamic> generateRoute(RouteSettings settings) {
 
-    // ignore: unused_local_variable
     final args = settings.arguments;
 
     switch (settings.name) {
@@ -43,6 +45,15 @@ class RouteGenerator {
         return RouteTransitions.slideFromBottom(RequireAuth(child: EditProfilePage()));
       case '/edit-broker':
         return RouteTransitions.slideFromBottom(RequireAuth(child: BrokerSettingsPage()));
+      case '/device-info':
+        if (args is Device) {
+          return RouteTransitions.zoomIn(
+            RequireAuth(child: DeviceInfoPage(device: args)),
+          );
+        }
+        return RouteTransitions.slideFromBottom(RequireAuth(child: HomePage()));
+      case '/edit-device':
+        return RouteTransitions.zoomIn(RequireAuth(child: AddDevicePage()));
       case '/about':
         return RouteTransitions.slideFromBottom(RequireAuth(child: AboutPage()));
       case '/user-settings':

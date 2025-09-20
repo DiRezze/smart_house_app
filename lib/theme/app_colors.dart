@@ -12,4 +12,5 @@ class AppColors {
   static const errorOutline = Color(0xFFD23C3C);
   static const navBackground = Color(0xFF0A0A0A);
   static const inputBackground = Color(0xFF282828);
+  static const inputFocusBackground = Color(0xFF474747);
 }

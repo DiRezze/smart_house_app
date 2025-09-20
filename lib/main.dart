@@ -8,6 +8,9 @@ import 'package:smart_house_app/services/firebase_options.dart';
 import 'package:smart_house_app/services/meta_service.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
 
+
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+
 Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,6 +54,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       onGenerateRoute: RouteGenerator.generateRoute,
+      navigatorObservers: [routeObserver],
     );
   }
 }
