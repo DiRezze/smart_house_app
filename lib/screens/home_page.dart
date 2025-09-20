@@ -54,8 +54,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver, RouteAw
   }
 
   void loadDevices() async {
-    await DeviceService().updateDevices();
-    final devices = DeviceCache().devices;
+    final devices = await DeviceService().loadCachedDevices();
     if (mounted) {
       setState(() {
         _deviceList = devices;

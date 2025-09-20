@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_house_app/models/icon_model.dart';
 import 'package:smart_house_app/services/auth_service.dart';
 import 'package:smart_house_app/services/device_service.dart';
+import 'package:smart_house_app/services/prefs_service.dart';
 
 class Device {
 
@@ -121,7 +124,11 @@ class Device {
 
     await ref.remove();
 
-    DeviceService().updateDevices();
+    final cache = DeviceCache();
+    cache.devices.removeWhere((d) => d.id == deviceId);
+
+    String devicesJson = jsonEncode(cache.devices.map((d) => d.toMap()).toList());
+    await PrefsService().setString("devices", devicesJson);
 
   }
 

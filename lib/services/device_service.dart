@@ -6,6 +6,19 @@ import 'package:smart_house_app/services/auth_service.dart';
 import 'package:smart_house_app/services/prefs_service.dart';
 
 class DeviceService {
+
+  Future<List<Device>> loadCachedDevices() async {
+    final json = await PrefsService().getString("devices");
+    if (json == null || json.isEmpty) return [];
+    final list = jsonDecode(json) as List;
+    return list.map((e) => Device.fromMap(e)).toList();
+  }
+
+  Future<void> persistCache() async {
+    String devicesJson = jsonEncode(DeviceCache().devices.map((d) => d.toMap()).toList());
+    await PrefsService().setString("devices", devicesJson);
+  }
+  
   Future<List<Device>> fetchDevices() async {
 
     final uid = AuthService().currentUser?.uid;
