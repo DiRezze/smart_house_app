@@ -37,7 +37,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver, RouteAw
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    routeObserver.unsubscribe(this); // corrigido
+    routeObserver.unsubscribe(this);
     super.dispose();
   }
 
@@ -54,8 +54,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver, RouteAw
   }
 
   void loadDevices() async {
-    await DeviceService().updateDevices();
-    final devices = DeviceCache().devices;
+    final devices = await DeviceService().loadCachedDevices();
     if (mounted) {
       setState(() {
         _deviceList = devices;
@@ -103,7 +102,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver, RouteAw
                 SizedBox(height: 16),
                 AnimationLimiter(
                   child: GridView.count(
-                      key: UniqueKey(),
+                    key: UniqueKey(),
                     crossAxisCount: 2,
                     mainAxisSpacing: 8,
                     crossAxisSpacing: 8,

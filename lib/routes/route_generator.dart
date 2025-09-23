@@ -41,6 +41,13 @@ class RouteGenerator {
         return RouteTransitions.slideFromBottom(RequireAuth(child: DevicePage()));
       case '/add-device':
         return RouteTransitions.slideFromRight(RequireAuth(child: AddDevicePage()));
+      case '/device-form':
+        if (args is Device) {
+          return RouteTransitions.slideFromRight(
+            RequireAuth(child: AddDevicePage(device: args)),
+          );
+        }
+        return RouteTransitions.slideFromBottom(RequireAuth(child: HomePage()));
       case '/edit-profile':
         return RouteTransitions.slideFromBottom(RequireAuth(child: EditProfilePage()));
       case '/edit-broker':

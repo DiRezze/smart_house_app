@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:smart_house_app/models/device_model.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
 import 'package:smart_house_app/widgets/layouts/devices_layout.dart';
@@ -34,10 +35,7 @@ class _DeviceInfoPageState extends State<DeviceInfoPage> {
   }
 
   void _editDevice() {
-    // TODO: implementar lógica de edição
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Editar dispositivo")),
-    );
+    Navigator.of(context).pushNamed("/device-form", arguments: widget.device);
   }
 
   @override
@@ -50,10 +48,10 @@ class _DeviceInfoPageState extends State<DeviceInfoPage> {
       backgroundColor: AppColors.primary,
       child: const Icon(Icons.edit),
     ),
-      showBackButton: true,
       title: widget.device.name,
       childWidget: SingleChildScrollView(
-        child: Column(
+        child: AnimationLimiter(
+    child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(height: 12),
@@ -162,8 +160,8 @@ class _DeviceInfoPageState extends State<DeviceInfoPage> {
                 ),
               ),
             ),
-
           ],
+        ),
         ),
       ),
     );

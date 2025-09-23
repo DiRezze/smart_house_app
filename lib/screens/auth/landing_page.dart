@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_house_app/constants/app_info.dart';
 import 'package:smart_house_app/widgets/landing_button.dart';
 
 class LandingPage extends StatelessWidget{
@@ -53,13 +54,23 @@ class LandingPage extends StatelessWidget{
                     spacing: 12,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-
-                      Text("AutomaTec",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 48
-                        ),
+                      Column(
+                        children: [
+                          Text("AutomaTec",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 48
+                            ),
+                          ),
+                          Text("v${AppInfo.version}",
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12
+                            ),
+                          ),
+                        ],
                       ),
 
                       LandingButton(
@@ -76,15 +87,18 @@ class LandingPage extends StatelessWidget{
 
                       Padding(
                         padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
-                        child: Text("Background designed by FreePik",
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12
-                          ),
-                        ),
+                        child: Column(
+                          children: [
+                            Text("Background designed by FreePik",
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12
+                              ),
+                            ),
+                          ],
+                        )
                       ),
-
                     ],
                   ),
                 ),

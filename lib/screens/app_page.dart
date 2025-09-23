@@ -12,6 +12,7 @@ class MainAppPage extends StatefulWidget {
 }
 
 class _MainAppPageState extends State<MainAppPage> {
+
   int _currentIndex = 0;
 
   final GlobalKey<HomePageState> _homeKey = GlobalKey<HomePageState>();

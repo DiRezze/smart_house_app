@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
+import 'package:smart_house_app/models/broker_model.dart';
 import 'package:smart_house_app/models/device_model.dart';
+import 'package:smart_house_app/services/prefs_service.dart';
 
 class MqttService {
   static final MqttService _instance = MqttService._internal();
@@ -12,10 +15,19 @@ class MqttService {
   late MqttServerClient client;
   bool _connected = false;
 
-  Future<void> connect({required String username, required String password, required  String url}) async {
+  Future<void> connect() async {
+
+    final brokerString = await PrefsService().getString("broker");
+    if (brokerString == null || brokerString.isEmpty) {
+      throw Exception("Nenhuma configuração de broker encontrada");
+    }
+
+    final decoded = jsonDecode(brokerString);
+    final broker = Broker.fromJson(decoded);
+
     if (_connected) return;
 
-    client = MqttServerClient(url, 'flutter_client');
+    client = MqttServerClient(broker.url, 'flutter_client');
     client.port = 8883;
 
     client.secure = true;
@@ -23,7 +35,7 @@ class MqttService {
 
     final connMessage = MqttConnectMessage()
         .withClientIdentifier('flutter_client_${DateTime.now().millisecondsSinceEpoch}')
-        .authenticateAs(username, password)
+        .authenticateAs(broker.user, broker.pass)
         .startClean()
         .withWillQos(MqttQos.atMostOnce);
 

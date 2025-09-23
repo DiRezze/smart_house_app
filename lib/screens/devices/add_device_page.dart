@@ -9,7 +9,12 @@ import 'package:smart_house_app/widgets/popups/snack_bar.dart';
 
 class AddDevicePage extends StatefulWidget {
 
-  const AddDevicePage({super.key});
+  final Device? device; // null => criar | !=null => editar
+
+  const AddDevicePage({
+    super.key,
+    this.device
+  });
 
   @override
   State<AddDevicePage> createState() => _AddDevicePageState();
@@ -26,6 +31,16 @@ class _AddDevicePageState extends State<AddDevicePage> {
   final int _state = 0;
 
   @override
+  void initState() {
+    super.initState();
+    if (widget.device != null) {
+      _nameController.text = widget.device!.name;
+      _topicController.text = widget.device!.topic;
+      _selectedIcon = widget.device!.icon;
+    }
+  }
+
+  @override
   void dispose() {
     _nameController.dispose();
     _topicController.dispose();
@@ -33,45 +48,63 @@ class _AddDevicePageState extends State<AddDevicePage> {
   }
 
   void _submit() async {
-    try{
-      setState(() {
-        _isLoading = true;
-      });
+    try {
+      setState(() => _isLoading = true);
 
       if (_formKey.currentState?.validate() ?? false) {
-
-        final d = Device(
+        if (widget.device == null) {
+          // Criar novo
+          final d = Device(
             id: '#',
             name: _nameController.text.trim(),
             icon: _selectedIcon,
             topic: _topicController.text.trim(),
             state: _state,
             lastUpdate: DateTime.now(),
-        );
+          );
 
-        d.create();
+          await d.create();
+
+          if (!mounted) return;
+
+          AppSnackBar.showSuccess(context, "Dispositivo adicionado!");
+        } else {
+
+          // Editar existente
+          final d = widget.device!;
+          d.name = _nameController.text.trim();
+          d.icon = _selectedIcon;
+          d.topic = _topicController.text.trim();
+          d.lastUpdate = DateTime.now();
+
+          await d.update();
+
+          if(!mounted) return;
+
+          AppSnackBar.showSuccess(context, "Dispositivo atualizado!");
+
+          Navigator.of(context).pop();
+
+        }
 
         if (!mounted) return;
 
         Navigator.of(context).pop();
-
-        AppSnackBar.showSuccess(context, "Dispositivo adicionado!");
       }
-    }
-    catch (e) {
+    } catch (e) {
       AppSnackBar.showError(context, e.toString());
-    }
-    finally {
-      setState(() {
-        _isLoading = false;
-      });
+    } finally {
+      setState(() => _isLoading = false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+
+    final isEditing = widget.device != null;
+
     return DevicesLayout(
-      title: "Adicionar dispositivo",
+      title: isEditing ? "Editar dispositivo" : "Adicionar dispositivo",
       childWidget: SingleChildScrollView(
         child: Form(
           key: _formKey,
