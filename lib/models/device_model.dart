@@ -82,29 +82,27 @@ class Device {
   }
 
   /// atualiza o registro do dispositivo no Realtime DB
-  Future<void> update(Device d) async {
+  Future<void> update() async {
     final uid = AuthService().currentUser?.uid;
 
-    if(uid == null) throw Exception("Sessão expirada");
+    if (uid == null) throw Exception("Sessão expirada");
 
     final db = FirebaseDatabase.instance;
-
     final deviceId = id;
 
     final ref = db.ref("users/$uid/devices/$deviceId");
 
     final data = {
-      'name': d.name,
-      'icon': d.icon,
-      'topic': d.topic,
-      'state': d.state,
-      'lastUpdate': d.lastUpdate.toIso8601String(),
+      'name': name,
+      'icon': icon,
+      'topic': topic,
+      'state': state,
+      'lastUpdate': lastUpdate.toIso8601String(),
     };
 
     await ref.update(data);
 
     DeviceService().updateDevices();
-
   }
 
   /// remove o dispositivo do RealTime Database
