@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_house_app/models/icon_model.dart';
 import 'package:smart_house_app/services/auth_service.dart';
 import 'package:smart_house_app/services/device_service.dart';
+import 'package:smart_house_app/services/mqtt_service.dart';
 import 'package:smart_house_app/services/prefs_service.dart';
 
 class Device {
@@ -128,6 +129,27 @@ class Device {
     String devicesJson = jsonEncode(cache.devices.map((d) => d.toMap()).toList());
     await PrefsService().setString("devices", devicesJson);
 
+  }
+
+  /// alterna o estado do dispositivo atual
+  Future<void> toggle() async {
+
+    final mqtt = MqttService();
+
+    try {
+      int newState = state == 1 ? 0 : 1;
+
+      await mqtt.connect();
+
+      mqtt.publish(this, newState);
+
+      state = newState;
+
+      lastUpdate = DateTime.now();
+
+    } catch (e) {
+      throw Exception('Erro ao alternar dispositivo: $e');
+    }
   }
 
 }

@@ -31,11 +31,7 @@ class _DeviceHomeCardState extends State<DeviceHomeCard> {
   Future<void> _toggleSwitch(bool value) async {
     try {
       int action = isOn ? 0 : 1;
-      mqtt.connect(
-        username: '---',
-        password: '---',
-        url: '---',
-      );
+      mqtt.connect();
       mqtt.publish(widget.device, action);
       setState(() {
         isOn = value;
