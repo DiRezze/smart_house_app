@@ -30,8 +30,8 @@ class _DeviceHomeCardState extends State<DeviceHomeCard> {
 
   Future<void> _toggleSwitch(bool value) async {
     try {
-      int action = isOn ? 0 : 1;
-      mqtt.connect();
+      int action = value ? 1 : 0;
+      await mqtt.connect();
       mqtt.publish(widget.device, action);
       setState(() {
         isOn = value;
@@ -40,6 +40,7 @@ class _DeviceHomeCardState extends State<DeviceHomeCard> {
         widget.onChanged!(value);
       }
     } catch (e) {
+      if(!context.mounted) return;
       AppSnackBar.showError(context, e.toString());
     }
   }
