@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:smart_house_app/services/device_service.dart';
 import 'package:smart_house_app/services/firebase_options.dart';
 import 'package:smart_house_app/services/meta_service.dart';
+import 'package:smart_house_app/services/notification_service.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
 
 
@@ -30,6 +31,8 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await NotificationService.initialize();
 
   await MetaService().updateMeta();
   await DeviceService().updateDevices();
