@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_house_app/services/prefs_service.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
 import 'package:smart_house_app/utils/internet_utils.dart';
 import 'package:smart_house_app/widgets/profile/profile_button.dart';
@@ -17,11 +18,13 @@ class _BrokerCardState extends State<BrokerCard> {
 
   bool _isLoading = true;
   bool _isOnline = true;
+  String _city = "...";
 
   @override
   void initState() {
     super.initState();
     _checkConnection();
+    _getCity();
   }
 
 
@@ -34,6 +37,11 @@ class _BrokerCardState extends State<BrokerCard> {
       _isOnline = online;
       _isLoading = false;
     });
+  }
+
+  void _getCity() async {
+    _city = await PrefsService().getString('city') ?? "Cidade desconhecida";
+    _city = "$_city | Brasil";
   }
 
   @override
@@ -84,7 +92,7 @@ class _BrokerCardState extends State<BrokerCard> {
                   SizedBox(width: 8,),
                   Icon(Icons.pin_drop_rounded, color: Colors.white, size: 18),
                   Text(
-                    "Garça, São Paulo | BRASIL",
+                    _city,
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
