@@ -7,6 +7,7 @@ import 'package:smart_house_app/widgets/device_home_card.dart';
 import 'package:smart_house_app/widgets/filter_section.dart';
 import 'package:smart_house_app/widgets/user_header.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:smart_house_app/widgets/weather_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -72,26 +73,8 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver, RouteAw
               children: [
                 UserHeader(),
                 SizedBox(height: 8,),
-                Container(
-                  width: double.infinity,
-                  height: 160,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [AppColors.analogPrimary, Colors.cyan]
-                    ),
-                    borderRadius: BorderRadius.circular(16)
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Informações de clima",
-                      style: TextStyle(
-                          color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18
-                      ),
-                    ),
-                  ),
-                ),
+                WeatherCard(city: "Garça", temperature: 34, description: "Sol",),
+                /*
                 SizedBox(height: 16),
                 FilterSection(
                   filters: ["Tudo", "Iluminação", "Aquecimento", "Segurança"],
@@ -99,6 +82,8 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver, RouteAw
                     // TODO: atualizar lista de dispositivos
                   },
                 ),
+
+                 */
                 SizedBox(height: 16),
                 AnimationLimiter(
                   child: GridView.count(

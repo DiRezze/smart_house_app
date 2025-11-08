@@ -14,10 +14,13 @@ class UserSettingsPage extends StatelessWidget {
           spacing: 8,
           children: [
             BigIconButton(
-                title: "App em desenvolvimento",
-                description: "Os dados de usuário atuais estão sujeitos a exclusão na transição entre versões MINOR e, principalmente, MAJOR.",
-                icon: Icon(Icons.info_rounded, color: Colors.white,),
+                title: "Local",
+                description: "Defina seu local para usar os recursos baseados em geolocalização",
+                icon: Icon(Icons.map_rounded, color: Colors.white,),
                 color: AppColors.primary,
+              onPressed: () {
+                  Navigator.of(context).pushNamed('/location');
+              },
             )
           ],
         )

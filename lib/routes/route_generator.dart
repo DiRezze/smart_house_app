@@ -8,6 +8,7 @@ import 'package:smart_house_app/screens/devices/device_info_page.dart';
 import 'package:smart_house_app/screens/profile/broker_settings_page.dart';
 import 'package:smart_house_app/screens/devices/add_device_page.dart';
 import 'package:smart_house_app/screens/devices/devices_page.dart';
+import 'package:smart_house_app/screens/profile/location_page.dart';
 import 'package:smart_house_app/screens/settings/about_page.dart';
 import 'package:smart_house_app/screens/settings/debug_page.dart';
 import 'package:smart_house_app/screens/profile/edit_profile_page.dart';
@@ -65,6 +66,8 @@ class RouteGenerator {
         return RouteTransitions.slideFromBottom(RequireAuth(child: AboutPage()));
       case '/user-settings':
         return RouteTransitions.slideFromBottom(RequireAuth(child: UserSettingsPage()));
+      case '/location':
+        return RouteTransitions.slideFromRight(RequireAuth(child: LocationPage()));
       case '/debug':
         return RouteTransitions.slideFromBottom(RequireAuth(child: DebugPage()));
       default:

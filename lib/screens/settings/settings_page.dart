@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_house_app/services/auth_service.dart';
 import 'package:smart_house_app/services/prefs_service.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
+import 'package:smart_house_app/widgets/auth_input.dart';
 import 'package:smart_house_app/widgets/big_icon_button.dart';
 import 'package:smart_house_app/widgets/layouts/settings_layout.dart';
 import 'package:smart_house_app/widgets/text_divider.dart';
@@ -16,6 +18,11 @@ class SettingsPage extends StatelessWidget {
       childWidget: Column(
         spacing: 8,
         children: [
+          AuthInputField(
+            labelText: "Pesquisar...",
+            prefixIcon: CupertinoIcons.search,
+            keyboardType: TextInputType.text,
+          ),
           BigIconButton(
             title: "Usuário",
             description: "Prenferências e privacidade",
