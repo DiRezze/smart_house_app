@@ -30,6 +30,8 @@ class _WeatherCardState extends State<WeatherCard> {
   String? _country;
   bool isLoading = true;
 
+  final ws = WeatherService.shared;
+
   @override
   void initState() {
     super.initState();
@@ -50,7 +52,7 @@ class _WeatherCardState extends State<WeatherCard> {
         isLoading = false;
       });
     } else {
-      final weatherMap = await WeatherService().getWeather();
+      final weatherMap = await ws.getWeather();
 
       String city = weatherMap?['name'];
       String country = weatherMap?['sys']['country'];
@@ -58,7 +60,7 @@ class _WeatherCardState extends State<WeatherCard> {
       String description = weatherMap?['weather'][0]['description'];
       String iconCode = weatherMap?['weather'][0]['icon'];
 
-      IconData icon = WeatherService().getWeatherIcon(iconCode);
+      IconData icon = ws.getWeatherIcon(iconCode);
 
       setState(() {
         _city = city;

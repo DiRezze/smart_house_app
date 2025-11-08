@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_house_app/main.dart';
 import 'package:smart_house_app/models/device_model.dart';
 import 'package:smart_house_app/services/device_service.dart';
+import 'package:smart_house_app/services/weather_service.dart';
 import 'package:smart_house_app/theme/app_colors.dart';
 import 'package:smart_house_app/widgets/device_home_card.dart';
 import 'package:smart_house_app/widgets/filter_section.dart';
@@ -19,6 +20,8 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> with WidgetsBindingObserver, RouteAware {
 
   List<Device> _deviceList = [];
+
+  final weather = WeatherService.shared;
 
   @override
   void initState() {
@@ -73,7 +76,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver, RouteAw
               children: [
                 UserHeader(),
                 SizedBox(height: 8,),
-                WeatherCard(city: "Garça", temperature: 34, description: "Sol",),
+                if (weather.isPreferred) WeatherCard(),
                 /*
                 SizedBox(height: 16),
                 FilterSection(

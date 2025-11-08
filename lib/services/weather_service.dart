@@ -1,15 +1,29 @@
-import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:smart_house_app/services/prefs_service.dart';
 
 class WeatherService {
+  static final WeatherService shared = WeatherService._internal();
+  WeatherService._internal();
+
+  bool isPreferred = true;
 
   WeatherService () {
     dio.options.connectTimeout = const Duration(seconds: 10);
     dio.options.receiveTimeout = const Duration(seconds: 10);
   }
+
+  Future<void> loadPreference() async {
+    final pref = await PrefsService().getBool("w-widget");
+    isPreferred = pref ?? true;
+  }
+
+  Future<void> togglePref() async {
+    isPreferred = !isPreferred;
+    await PrefsService().setBool("w-widget", isPreferred);
+  }
+
 
   final String baseUrl = 'https://api.openweathermap.org/data/2.5/weather';
 
